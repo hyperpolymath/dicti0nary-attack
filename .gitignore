@@ -1,56 +1,79 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# RSR-compliant .gitignore
 
-# Virtual environments
-venv/
-env/
-ENV/
-.venv
-
-# IDE
-.vscode/
-.idea/
+# OS & Editor
+.DS_Store
+Thumbs.db
 *.swp
 *.swo
 *~
+.idea/
+.vscode/
 
-# Testing
-.pytest_cache/
-.coverage
+# Build
+/target/
+/_build/
+/build/
+/dist/
+/out/
+
+# Dependencies
+/node_modules/
+/vendor/
+/deps/
+/.elixir_ls/
+
+# Rust
+# Cargo.lock  # Keep for binaries
+
+# Elixir
+/cover/
+/doc/
+*.ez
+erl_crash.dump
+
+# Julia
+*.jl.cov
+*.jl.mem
+/Manifest.toml
+
+# ReScript
+/lib/bs/
+/.bsb.lock
+
+# Python (SaltStack only)
+__pycache__/
+*.py[cod]
+.venv/
+
+# Ada/SPARK
+*.ali
+/obj/
+/bin/
+
+# Haskell
+/.stack-work/
+/dist-newstyle/
+
+# Chapel
+*.chpl.tmp.*
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+secrets/
+
+# Test/Coverage
+/coverage/
 htmlcov/
-.tox/
 
-# Output
-output/
-results/
+# Logs
 *.log
-*.csv
-*.json
-reports/
+/logs/
 
-# Wordlists (keep examples)
-wordlists/*
-!wordlists/examples/
-
-# Config (keep templates)
-config/local.yaml
-config/secrets.yaml
+# Temp
+/tmp/
+*.tmp
+*.bak
