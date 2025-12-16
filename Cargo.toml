@@ -22,7 +22,7 @@ anyhow = "1"
 sha2 = "0.10"
 md-5 = "0.10"
 argon2 = { version = "0.5", features = ["password-hash"] }
-bcrypt = "0.15"
+bcrypt = "0.17"
 rand = "0.8"
 rayon = "1.8"
 
