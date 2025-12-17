@@ -1,19 +1,19 @@
 # security.txt - RFC 9116 compliant security contact information
 # https://securitytxt.org/
 
-Contact: https://github.com/Hyperpolymath/dicti0nary-attack/security/advisories/new
+Contact: https://github.com/hyperpolymath/dicti0nary-attack/security/advisories/new
 Expires: 2026-11-22T00:00:00.000Z
 Preferred-Languages: en
-Canonical: https://raw.githubusercontent.com/Hyperpolymath/dicti0nary-attack/main/.well-known/security.txt
+Canonical: https://raw.githubusercontent.com/hyperpolymath/dicti0nary-attack/main/.well-known/security.txt
 
 # Security Policy
-Policy: https://github.com/Hyperpolymath/dicti0nary-attack/blob/main/SECURITY.md
+Policy: https://github.com/hyperpolymath/dicti0nary-attack/blob/main/SECURITY.md
 
 # Acknowledgments
-Acknowledgments: https://github.com/Hyperpolymath/dicti0nary-attack/blob/main/SECURITY.md#acknowledgments
+Acknowledgments: https://github.com/hyperpolymath/dicti0nary-attack/blob/main/SECURITY.md#acknowledgments
 
 # Project Information
-Hiring: https://github.com/Hyperpolymath/dicti0nary-attack/blob/main/CONTRIBUTING.md
+Hiring: https://github.com/hyperpolymath/dicti0nary-attack/blob/main/CONTRIBUTING.md
 
 # Additional Information
 # This is a security research tool for authorized penetration testing only.
