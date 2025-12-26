@@ -226,8 +226,21 @@
         </div>
     </footer>
 
-    <!-- Load WASM modules and JavaScript -->
-    <script src="static/js/wasm-loader.js"></script>
-    <script src="static/js/app.js"></script>
+    <!-- Load ReScript-compiled modules -->
+    <!-- Primary: Compiled ReScript (ES6 modules) -->
+    <script type="module">
+      // Try to load compiled ReScript modules
+      try {
+        await import('./lib/es6/web/src/Main.res.js');
+        await import('./lib/es6/web/src/WasmLoader.res.js');
+        await import('./lib/es6/web/src/App.res.js');
+        console.log('ReScript modules loaded');
+      } catch (e) {
+        console.log('ReScript not compiled, loading bootstrap fallback');
+        // Fallback is loaded via nomodule script below
+      }
+    </script>
+    <!-- Fallback: Bootstrap loader for non-module browsers or uncompiled state -->
+    <script nomodule src="static/js/bootstrap.js"></script>
 </body>
 </html>

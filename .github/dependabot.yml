@@ -1,4 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# Dependabot configuration for dicti0nary-attack
+# Note: npm ecosystem removed - using Deno instead
 version: 2
 updates:
   - package-ecosystem: "cargo"
@@ -16,7 +18,4 @@ updates:
       actions:
         patterns:
           - "*"
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+  # Note: Deno deps managed via deno.json imports (no npm)

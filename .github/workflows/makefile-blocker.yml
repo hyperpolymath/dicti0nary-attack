@@ -1,0 +1,26 @@
+name: Makefile Blocker
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Block Makefiles
+        run: |
+          # Check for Makefile or makefile or GNUmakefile
+          MAKEFILES=$(find . -maxdepth 3 -name 'Makefile' -o -name 'makefile' -o -name 'GNUmakefile' -o -name '*.mk' 2>/dev/null | grep -v node_modules | grep -v target || true)
+
+          if [ -n "$MAKEFILES" ]; then
+            echo "❌ Makefiles detected. Use 'just' (justfile) instead."
+            echo ""
+            echo "Found:"
+            echo "$MAKEFILES"
+            echo ""
+            echo "Migration guide:"
+            echo "  1. Convert make targets to just recipes"
+            echo "  2. See https://just.systems/man/en/"
+            echo "  3. Reference: https://github.com/hyperpolymath/mustfile"
+            exit 1
+          fi
+
+          echo "✅ No Makefiles found - justfile policy enforced"

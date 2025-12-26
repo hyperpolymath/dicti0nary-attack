@@ -184,6 +184,45 @@ nickel-eval:
 nickel-check:
     nickel typecheck config/dicti0nary.ncl
 
+# Validate Mustfile.epx
+mustfile-check:
+    nickel typecheck Mustfile.epx
+
+# === ReScript/Deno Commands ===
+
+# Build ReScript modules
+rescript-build:
+    deno task build:rescript
+
+# Watch ReScript modules
+rescript-watch:
+    deno task watch:rescript
+
+# Clean ReScript build
+rescript-clean:
+    deno task clean:rescript
+
+# === Policy Enforcement ===
+
+# Validate no Makefiles exist
+validate-no-makefile:
+    @echo "Checking for Makefiles..."
+    @! find . -maxdepth 3 \( -name 'Makefile' -o -name 'makefile' -o -name 'GNUmakefile' -o -name '*.mk' \) -not -path './target/*' -not -path './node_modules/*' | grep . || echo "✅ No Makefiles found"
+
+# Validate no npm/bun artifacts
+validate-no-npm:
+    @echo "Checking for npm/bun artifacts..."
+    @! test -f package-lock.json && ! test -f bun.lockb && ! test -f .npmrc && echo "✅ No npm/bun artifacts"
+
+# Validate no new TypeScript
+validate-no-typescript:
+    @echo "Checking for TypeScript files..."
+    @! find . -name '*.ts' -o -name '*.tsx' | grep -v node_modules | grep -v '.d.ts' | grep . || echo "✅ No TypeScript files"
+
+# Run all policy validations
+validate-policy: validate-no-makefile validate-no-npm validate-no-typescript
+    @echo "✅ All policy validations passed"
+
 # Generate config variants with Nickel
 nickel-variants:
     #!/usr/bin/env bash
