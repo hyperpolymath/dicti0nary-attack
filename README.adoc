@@ -5,7 +5,9 @@
 Everyone knows that it's easy to crack a password if it appears in a dictionary. _dicti0nary-attack_ is a humorous inversion of that concept - it's a powerful tool for generating and testing passwords that are NOT in traditional dictionaries, focusing on the creative variations users think make their passwords "secure."
 
 link:https://img.shields.io/badge/License-GPLv3-blue.svg[![License: GPL v3]](https://www.gnu.org/licenses/gpl-3.0)
-link:https://img.shields.io/badge/python-3.10+-blue.svg[![Python 3.10+]](https://www.python.org/downloads/)
+link:https://img.shields.io/badge/Chapel-2.3+-purple.svg[![Chapel]](https://chapel-lang.org/)
+link:https://img.shields.io/badge/Rust-2021-orange.svg[![Rust]](https://www.rust-lang.org/)
+link:https://img.shields.io/badge/ReScript-11+-red.svg[![ReScript]](https://rescript-lang.org/)
 link:https://img.shields.io/badge/RSR-Bronze%20(86%25[![RSR Compliance]-yellow.svg)](RSR_COMPLIANCE.md)
 link:https://img.shields.io/badge/offline--first-100%25-green.svg[![Offline-First]](RSR_COMPLIANCE.md#5-offline-first--compliant)
 
@@ -55,33 +57,52 @@ Unauthorized access to computer systems is _illegal_ and may result in criminal 
 
 == 📦 Installation
 
+=== Prerequisites
+
+* **Chapel** 2.3+ - https://chapel-lang.org/download.html[Download Chapel]
+* **Rust** 2021 edition - https://rustup.rs/[Install via rustup]
+* **Deno** (for web dev) - https://deno.land/[Install Deno]
+* **just** task runner - https://just.systems/[Install just]
+
 === From Source
 
 [source,bash]
 ----
 git clone https://github.com/Hyperpolymath/dicti0nary-attack.git
 cd dicti0nary-attack
-pip install -r requirements.txt
-pip install -e .
+
+# Initialize development environment
+just init
+
+# Build Chapel + Rust CLI
+just build
+
+# Build WASM for web interface
+just build-wasm
 ----
 
-=== Using Docker
+=== Using Podman/Docker
 
 [source,bash]
 ----
+# Build with Podman (preferred)
+podman build -t dicti0nary-attack -f Containerfile .
+podman run --rm dicti0nary-attack just info
+
+# Or with Docker
 docker build -t dicti0nary-attack .
-docker run --rm dicti0nary-attack dicti0nary --help
+docker run --rm dicti0nary-attack just info
 ----
 
-=== Using Docker Compose
+=== Using Podman Compose
 
 [source,bash]
 ----
 # Run CLI
-docker-compose run dicti0nary-cli dicti0nary info
+podman-compose run dicti0nary-cli just info
 
-# Run web interface
-docker-compose up dicti0nary-web
+# Run web interface (static server)
+podman-compose up dicti0nary-static
 ----
 
 == 🚀 Quick Start
@@ -140,13 +161,14 @@ dicti0nary hash-password "mypassword" -a md5
 
 [source,bash]
 ----
-python -m dicti0nary_attack.web.app
+# Serve static web interface
+just serve-static
 
-# Or using Make
-make run-web
+# Or with Deno
+deno task serve
 ----
 
-Visit http://localhost:5000 in your browser.
+Visit http://localhost:8080 in your browser.
 
 == 📚 Documentation
 
@@ -195,29 +217,43 @@ dicti0nary create-wordlist data/patterns.txt -g pattern -n 50000
 [source,text]
 ----
 dicti0nary-attack/
-├── src/dicti0nary_attack/
-│   ├── generators/          # Password generation strategies
-│   │   ├── base.py          # Base generator class
-│   │   ├── leetspeak.py     # Leetspeak transformations
-│   │   ├── phonetic.py      # Phonetic substitutions
-│   │   ├── pattern.py       # Pattern-based generation
-│   │   ├── random_gen.py    # Random generation
-│   │   └── markov.py        # Markov chain generation
-│   ├── crackers/            # Hash cracking engine
-│   │   └── hash_cracker.py  # Multi-algorithm cracker
-│   ├── utils/               # Utility modules
-│   │   ├── wordlist.py      # Wordlist management
-│   │   ├── config.py        # Configuration handling
-│   │   └── output.py        # Output formatting
-│   ├── web/                 # Web interface
-│   │   ├── app.py           # Flask application
-│   │   └── templates/       # HTML templates
-│   ├── cli.py               # Command-line interface
-│   └── benchmark.py         # Performance benchmarks
-├── tests/                   # Test suite
-├── config/                  # Configuration files
-├── docs/                    # Documentation
-└── wordlists/              # Example wordlists
+├── src/                          # Main source code
+│   ├── main.rs                   # Rust CLI entry point
+│   ├── dicti0nary.chpl           # Chapel main program
+│   ├── generators/               # Chapel generator modules
+│   │   ├── Leetspeak.chpl        # Leetspeak transformations
+│   │   ├── Phonetic.chpl         # Phonetic substitutions
+│   │   ├── Pattern.chpl          # Pattern-based generation
+│   │   ├── Random.chpl           # Random generation
+│   │   └── Markov.chpl           # Markov chain generation
+│   └── crackers/                 # Hash cracking engine
+│       └── HashCracker.chpl      # Multi-algorithm cracker
+├── crates/                       # Rust workspace crates
+│   ├── core/                     # Type definitions & traits
+│   ├── generators/               # Rust generator implementations
+│   └── crackers/                 # Rust cracking engine
+├── web/                          # Static web interface
+│   ├── index.html                # Main HTML
+│   ├── src/                      # ReScript source
+│   │   ├── App.res               # Application logic
+│   │   ├── Generators.res        # Password generators
+│   │   ├── Hash.res              # Hashing utilities
+│   │   └── WasmLoader.res        # WASM module loader
+│   └── static/                   # Static assets
+│       ├── css/                  # CSS-first styling
+│       ├── js/                   # Compiled ReScript output
+│       └── wasm/                 # Chapel-compiled WASM
+├── config/                       # Configuration files
+│   ├── dicti0nary.ncl            # Nickel configuration
+│   └── *.yaml                    # YAML configs
+├── tests/                        # Chapel test suite
+├── docs/                         # Documentation
+├── wordlists/                    # Example wordlists
+├── justfile                      # Task automation
+├── Cargo.toml                    # Rust workspace manifest
+├── Chapel.toml                   # Chapel config
+├── rescript.json                 # ReScript config
+└── deno.json                     # Deno config
 ----
 
 == 🔧 Configuration
@@ -260,14 +296,17 @@ Run the test suite:
 
 [source,bash]
 ----
-# Run all tests
-pytest
+# Run Chapel tests
+just test
 
 # Run with coverage
-pytest --cov=dicti0nary_attack --cov-report=html
+just test-cov
 
-# Or using Make
-make test
+# Run Rust tests
+cargo test
+
+# Watch mode (requires entr)
+just test-watch
 ----
 
 == 📊 Benchmarks
@@ -276,18 +315,23 @@ Run performance benchmarks:
 
 [source,bash]
 ----
-python -m dicti0nary_attack.benchmark
+# Run Chapel benchmarks
+just bench
 
-# Or using Make
-make benchmark
+# Run Rust benchmarks
+cargo bench
 ----
 
-== 🐳 Docker Usage
+== 🐳 Container Usage
 
-=== Build Image
+=== Build Image (Podman preferred)
 
 [source,bash]
 ----
+# Podman (preferred)
+podman build -t dicti0nary-attack -f Containerfile .
+
+# Docker
 docker build -t dicti0nary-attack .
 ----
 
@@ -295,17 +339,17 @@ docker build -t dicti0nary-attack .
 
 [source,bash]
 ----
-docker run --rm dicti0nary-attack dicti0nary generate -g leetspeak -n 100
+podman run --rm dicti0nary-attack just info
 ----
 
 === Run Web Interface
 
 [source,bash]
 ----
-docker-compose up dicti0nary-web
+podman-compose up dicti0nary-static
 ----
 
-Access at http://localhost:5000
+Access at http://localhost:8080
 
 == 🛠️ Development
 
@@ -317,34 +361,50 @@ Access at http://localhost:5000
 git clone https://github.com/Hyperpolymath/dicti0nary-attack.git
 cd dicti0nary-attack
 
-# Install in development mode
-pip install -e .
+# Initialize (installs deps, sets up directories)
+just init
 
-# Install development dependencies
-pip install -r requirements.txt pytest pytest-cov flake8 black
+# Install pre-commit hooks
+just setup-hooks
+
+# Build ReScript (web interface)
+deno task build:rescript
+
+# Watch mode for development
+deno task watch:rescript
 ----
 
-=== Available Make Commands
+=== Available just Commands
 
 [source,bash]
 ----
-make install       # Install package and dependencies
-make test          # Run tests with coverage
-make lint          # Run code linters
-make clean         # Remove build artifacts
-make docker        # Build Docker image
-make run-web       # Run web interface
-make benchmark     # Run performance benchmarks
+just               # List all commands
+just build         # Compile Chapel sources
+just build-wasm    # Compile to WASM
+just build-all     # Build everything
+just test          # Run Chapel tests
+just test-cov      # Tests with coverage
+just bench         # Performance benchmarks
+just format        # Format Chapel code
+just lint          # Lint Chapel code
+just quality       # All quality checks
+just clean         # Remove build artifacts
+just serve-static  # Serve web interface
+just podman-build  # Build container
+just validate-rsr  # Check RSR compliance
+just nickel-eval   # Evaluate Nickel config
+just stats         # Show project statistics
 ----
 
 == 🤝 Contributing
 
 Contributions are welcome! Please ensure:
 
-1. All tests pass: `pytest`
-2. Code is formatted: `black src/ tests/`
-3. No linting errors: `flake8 src/ tests/`
-4. Documentation is updated
+1. All tests pass: `just test` and `cargo test`
+2. Code is formatted: `just format` and `cargo fmt`
+3. No linting errors: `just lint` and `cargo clippy`
+4. ReScript compiles: `deno task build:rescript`
+5. Documentation is updated
 
 == 📄 License
 
@@ -353,7 +413,8 @@ This project is licensed under the GNU General Public License v3.0 - see the lin
 == 🙏 Acknowledgments
 
 - Inspired by the need for better password security testing tools
-- Built with Python, Flask, Rich, and Click
+- Built with Chapel, Rust, ReScript, and Nickel
+- Powered by WASM for offline-first browser execution
 - Thanks to the security research community
 
 == 📞 Contact & Support

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/rescript-lang/rescript-compiler/master/docs/docson/build-schema.json",
+  "name": "dicti0nary-attack-web",
+  "version": "0.1.0",
+  "sources": [
+    {
+      "dir": "web/src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "es6",
+      "in-source": false
+    }
+  ],
+  "suffix": ".res.js",
+  "bs-dependencies": [],
+  "warnings": {
+    "error": "+101"
+  },
+  "bsc-flags": ["-open Belt"]
+}

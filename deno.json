@@ -1,0 +1,32 @@
+{
+  "$schema": "https://deno.land/x/deno@v2.1.4/cli/schemas/config-file.v1.json",
+  "name": "@hyperpolymath/dicti0nary-attack",
+  "version": "0.1.0",
+  "license": "GPL-3.0-or-later",
+  "tasks": {
+    "build:rescript": "deno run -A npm:rescript@11 build",
+    "watch:rescript": "deno run -A npm:rescript@11 build -w",
+    "clean:rescript": "deno run -A npm:rescript@11 clean",
+    "serve": "deno run --allow-net --allow-read https://deno.land/std@0.220.0/http/file_server.ts web/",
+    "dev": "deno task watch:rescript & deno task serve",
+    "lint": "deno lint web/src/",
+    "fmt": "deno fmt web/src/"
+  },
+  "imports": {
+    "rescript": "npm:rescript@11"
+  },
+  "compilerOptions": {
+    "lib": ["deno.window", "dom"]
+  },
+  "lint": {
+    "include": ["web/src/"],
+    "exclude": ["web/static/js/"],
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "fmt": {
+    "include": ["web/src/"],
+    "exclude": ["web/static/js/"]
+  }
+}
