@@ -1,0 +1,256 @@
+= Contributing to dicti0nary-attack
+
+Thank you for your interest in contributing to dicti0nary-attack! This document provides guidelines for contributing to the project.
+
+== Code of Conduct
+
+This project adheres to a code of conduct that promotes:
+- Respectful and inclusive communication
+- Ethical use of security tools
+- Collaboration and constructive feedback
+
+== How to Contribute
+
+=== Reporting Bugs
+
+If you find a bug:
+
+1. Check if the issue already exists in link:https://github.com/Hyperpolymath/dicti0nary-attack/issues[GitHub Issues]
+2. If not, create a new issue with:
+   - Clear, descriptive title
+   - Steps to reproduce
+   - Expected vs actual behavior
+   - Environment details (OS, Python version, etc.)
+   - Code samples or error messages
+
+=== Suggesting Features
+
+Feature requests are welcome! Please:
+
+1. Check existing issues and discussions
+2. Create a new issue with:
+   - Clear description of the feature
+   - Use cases and benefits
+   - Potential implementation approach
+   - Examples if applicable
+
+=== Pull Requests
+
+We love pull requests! Here's the process:
+
+1. _Fork the repository_
+2. _Create a feature branch_
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. _Make your changes_
+   - Write clean, readable code
+   - Follow existing code style
+   - Add tests for new functionality
+   - Update documentation
+
+4. _Test your changes_
+   ```bash
+   # Run tests
+   pytest
+
+   # Check coverage
+   pytest --cov=dicti0nary_attack
+
+   # Run linters
+   flake8 src/ tests/
+   ```
+
+5. _Commit your changes_
+   ```bash
+   git commit -m "Add feature: description of your changes"
+   ```
+
+6. _Push to your fork_
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+7. _Open a Pull Request_
+   - Provide a clear description
+   - Reference any related issues
+   - Explain the changes made
+   - Include screenshots if applicable
+
+== Development Setup
+
+[source,bash]
+----
+# Clone your fork
+git clone https://github.com/YOUR_USERNAME/dicti0nary-attack.git
+cd dicti0nary-attack
+
+# Install in development mode
+pip install -e .
+
+# Install development dependencies
+pip install pytest pytest-cov flake8 black isort
+
+# Run tests
+pytest
+----
+
+== Code Style
+
+We follow PEP 8 with some modifications:
+
+- _Line Length_: 127 characters max (relaxed from 79)
+- _Formatting_: Use `black` for automatic formatting
+- _Imports_: Use `isort` to organize imports
+- _Docstrings_: Google-style docstrings
+
+Format your code:
+
+[source,bash]
+----
+# Auto-format with black
+black src/ tests/
+
+# Sort imports
+isort src/ tests/
+
+# Check with flake8
+flake8 src/ tests/
+----
+
+== Testing Guidelines
+
+All new features must include tests:
+
+- _Unit Tests_: Test individual functions and classes
+- _Integration Tests_: Test component interactions
+- _Coverage_: Aim for >80% code coverage
+
+Test file structure:
+
+[source,python]
+----
+"""Tests for module_name."""
+
+import pytest
+from dicti0nary_attack.module import ClassName
+
+
+class TestClassName:
+    """Tests for ClassName."""
+
+    def test_feature_description(self):
+        """Test that feature works correctly."""
+        # Arrange
+        instance = ClassName()
+
+        # Act
+        result = instance.method()
+
+        # Assert
+        assert result == expected_value
+----
+
+== Documentation
+
+Update documentation for:
+
+- New features
+- API changes
+- Configuration options
+- Usage examples
+
+Documentation locations:
+- `README.md` - Overview and quick start
+- `docs/USAGE.md` - Detailed usage guide
+- `docs/API.md` - API reference
+- Code docstrings - Inline documentation
+
+== Adding New Generators
+
+To add a new password generator:
+
+1. _Create generator file_: `src/dicti0nary_attack/generators/your_generator.py`
+
+[source,python]
+----
+from dicti0nary_attack.generators.base import PasswordGenerator
+from typing import Iterator, Optional
+
+class YourGenerator(PasswordGenerator):
+    def generate(self, count: Optional[int] = None) -> Iterator[str]:
+        # Your implementation
+        pass
+----
+
+2. _Add to __init__.py_: `src/dicti0nary_attack/generators/__init__.py`
+
+3. _Write tests_: `tests/test_your_generator.py`
+
+4. _Update CLI_: Add to `src/dicti0nary_attack/cli.py`
+
+5. _Update documentation_
+
+== Adding New Features
+
+For substantial features:
+
+1. _Discuss first_: Open an issue to discuss the feature
+2. _Plan the implementation_: Outline your approach
+3. _Break into commits_: Make logical, atomic commits
+4. _Test thoroughly_: Include comprehensive tests
+5. _Document completely_: Update all relevant docs
+
+== Commit Message Guidelines
+
+Use clear, descriptive commit messages:
+
+[source,text]
+----
+Add feature: brief description
+
+Detailed explanation of what changed and why.
+Include any relevant context or breaking changes.
+
+Closes #123
+----
+
+Format:
+- _Add_: New features
+- _Fix_: Bug fixes
+- _Update_: Changes to existing features
+- _Refactor_: Code improvements without functional changes
+- _Docs_: Documentation updates
+- _Test_: Test additions or changes
+
+== Review Process
+
+All pull requests go through review:
+
+1. Automated tests must pass
+2. Code review by maintainers
+3. Discussion and potential revisions
+4. Approval and merge
+
+== Security Considerations
+
+When contributing:
+
+- _Never commit secrets_: No API keys, passwords, etc.
+- _Validate inputs_: Always validate and sanitize user input
+- _Document security implications_: Explain security-related changes
+- _Report vulnerabilities_: Email security issues privately
+
+== License
+
+By contributing, you agree that your contributions will be licensed under the GPL-3.0 License.
+
+== Questions?
+
+- Open an issue for questions
+- Check existing documentation
+- Review closed issues and PRs
+
+Thank you for contributing to dicti0nary-attack! 🎉
+

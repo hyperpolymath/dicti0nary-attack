@@ -1,0 +1,77 @@
+= dicti0nary-attack
+
+== Project Overview
+
+dicti0nary-attack is a security research utility for password cracking that focuses on words NOT in traditional dictionaries. This is a humorous inversion of conventional dictionary attacks - instead of testing common dictionary words, this tool targets non-standard passwords.
+
+== Purpose
+
+This tool is designed for:
+- Security research and education
+- Authorized penetration testing
+- Password strength analysis
+- CTF (Capture The Flag) competitions
+- Defensive security research
+
+_Important_: This tool should only be used in authorized contexts with explicit permission. It is intended for ethical hacking, security auditing, and educational purposes.
+
+== Project Status
+
+This is an early-stage project with:
+- README documentation established
+- GPL v3 license in place
+- Core implementation pending
+
+== Development Guidelines
+
+=== Security Considerations
+
+- All code must be developed with security best practices
+- Avoid introducing vulnerabilities (command injection, XSS, SQL injection, etc.)
+- Document any security-sensitive functionality
+- Include warnings about authorized use only
+
+=== Code Structure
+
+As this project develops, maintain clear separation between:
+- Core password generation/testing logic
+- Dictionary/wordlist management
+- Output formatting and reporting
+- Configuration handling
+
+=== Testing Requirements
+
+- Unit tests for core functionality
+- Integration tests for wordlist processing
+- Performance benchmarks for password generation
+- Security testing to prevent misuse
+
+=== Documentation
+
+Maintain clear documentation for:
+- Installation and setup
+- Usage examples
+- Configuration options
+- Legal and ethical considerations
+
+== Technology Stack
+
+To be determined based on implementation needs. Consider:
+- Python for rapid development and extensive library support
+- Go for performance-critical components
+- Rust for memory-safe, high-performance code
+
+== License
+
+This project is licensed under GPL v3. All contributions must comply with this license.
+
+== Ethical Use Statement
+
+This tool is intended solely for:
+- Authorized security testing
+- Educational purposes
+- Security research with proper authorization
+- Defensive security measures
+
+Unauthorized access to systems is illegal. Always obtain explicit permission before testing any system you do not own.
+

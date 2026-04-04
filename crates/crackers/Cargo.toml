@@ -1,0 +1,12 @@
+[package]
+name = "dicti0nary-attack-crackers"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+dicti0nary-attack-core = { path = "../core" }
+sha2 = { workspace = true }
+md-5 = { workspace = true }
+argon2 = { workspace = true }
+bcrypt = { workspace = true }
+rayon = { workspace = true }

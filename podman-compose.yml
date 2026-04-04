@@ -1,0 +1,42 @@
+# Podman Compose configuration
+# dicti0nary-attack static site with WASM
+#
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# SPDX-FileCopyrightText: 2025 Security Research Team
+
+version: '3.8'
+
+services:
+  dicti0nary-static:
+    build:
+      context: .
+      dockerfile: Containerfile
+    image: dicti0nary-attack:latest
+    container_name: dicti0nary-static
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./web:/app/web:ro
+      - ./output:/app/output
+      - ./wordlists:/app/wordlists:ro
+      - ./config:/app/config:ro
+    environment:
+      - DICTI0NARY_ENV=production
+      - WASM_THREADS=4
+    command: just serve-static
+
+  dicti0nary-cli:
+    build:
+      context: .
+      dockerfile: Containerfile
+    image: dicti0nary-attack:latest
+    container_name: dicti0nary-cli
+    volumes:
+      - ./output:/app/output
+      - ./wordlists:/app/wordlists
+      - ./config:/app/config
+    environment:
+      - DICTI0NARY_LOG_LEVEL=INFO
+    command: just info
+    profiles:
+      - cli

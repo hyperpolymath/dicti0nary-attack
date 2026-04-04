@@ -1,0 +1,6 @@
+homepage: "https://github.com/hyperpolymath/dicti0nary-attack"
+language: rust
+main_repo: "https://github.com/hyperpolymath/dicti0nary-attack"
+sanitizers:
+  - address
+  - undefined

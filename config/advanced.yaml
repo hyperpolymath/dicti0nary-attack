@@ -1,0 +1,43 @@
+# Advanced configuration for dicti0nary-attack
+
+generators:
+  leetspeak:
+    max_substitutions: 5  # More thorough substitutions
+    min_length: 4
+    max_length: 24
+
+  phonetic:
+    case_variations: true
+    min_length: 3
+    max_length: 30
+
+  pattern:
+    min_length: 4
+    max_length: 20
+
+  random:
+    min_length: 12
+    max_length: 20
+    use_uppercase: true
+    use_lowercase: true
+    use_digits: true
+    use_special: true
+
+  markov:
+    order: 3  # Higher order for more context
+    min_length: 8
+    max_length: 20
+
+cracker:
+  algorithm: sha512
+  workers: 8  # Use more workers
+  batch_size: 5000  # Larger batches
+
+output:
+  format: json
+  directory: output
+  save_stats: true
+
+logging:
+  level: DEBUG
+  file: dicti0nary_attack.log

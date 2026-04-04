@@ -1,0 +1,69 @@
+= RSR Framework Metadata
+
+This directory contains metadata for Rhodium Standard Repository (RSR) Framework compliance.
+
+== Files
+
+=== metadata.yml
+
+Machine-readable compliance information:
+- RSR version and compliance level
+- Project information
+- Category-by-category compliance status
+- Improvement roadmap
+- Next steps toward higher compliance
+
+== Usage
+
+=== Check Compliance
+
+[source,bash]
+----
+# Using justfile
+just validate-rsr
+
+# Manual check
+cat .rsr/metadata.yml
+----
+
+=== View Detailed Report
+
+See link:../RSR_COMPLIANCE.md[RSR_COMPLIANCE.md] for a comprehensive compliance report.
+
+== RSR Framework
+
+The Rhodium Standard Repository Framework defines standards for:
+
+1. _Documentation_: Complete project documentation
+2. _.well-known/_: Standardized metadata (RFC 9116, etc.)
+3. _Type Safety_: Compile-time or runtime type checking
+4. _Memory Safety_: Protection against memory errors
+5. _Offline-First_: Works without internet connectivity
+6. _Build System_: Reproducible builds and automation
+7. _Testing_: Comprehensive test coverage
+8. _TPCF_: Tri-Perimeter Contribution Framework
+9. _Security_: Secure development practices
+10. _Community_: Inclusive community governance
+11. _Licensing_: Clear licensing and attribution
+
+== Current Status
+
+- _Level_: Bronze ✅
+- _Score_: 86%
+- _Target_: Silver (90%+)
+
+== Improvement Path
+
+See `metadata.yml` for detailed next steps and improvement plan.
+
+== References
+
+- link:../RSR_COMPLIANCE.md[RSR_COMPLIANCE.md]: Full compliance report
+- link:../SECURITY.md[SECURITY.md]: Security policy
+- link:../CONTRIBUTING.md[CONTRIBUTING.md]: Contribution guidelines
+- link:./../.well-known/[.well-known/]: Metadata directory
+
+---
+
+Last updated: 2025-11-22
+

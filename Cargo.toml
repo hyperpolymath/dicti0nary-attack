@@ -1,0 +1,43 @@
+[package]
+name = "dicti0nary-attack"
+version = "0.1.0"
+edition = "2021"
+authors = ["Jonathan D.A. Jewell <jonathan@hyperpolymath.org>"]
+description = "Password dictionary generator and hash cracker with multiple generation strategies"
+license = "PMPL-1.0-or-later"
+repository = "https://github.com/hyperpolymath/dicti0nary-attack"
+
+[workspace]
+members = ["crates/*"]
+
+[workspace.dependencies]
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+clap = { version = "4", features = ["derive", "env"] }
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+anyhow = "1"
+sha2 = "0.10"
+md-5 = "0.10"
+argon2 = { version = "0.5", features = ["password-hash"] }
+bcrypt = "0.15"
+rand = "0.9"
+rayon = "1.8"
+
+[dependencies]
+dicti0nary-attack-core = { path = "crates/core" }
+dicti0nary-attack-generators = { path = "crates/generators" }
+dicti0nary-attack-crackers = { path = "crates/crackers" }
+clap.workspace = true
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+anyhow.workspace = true
+
+[[bin]]
+name = "dict0"
+path = "src/main.rs"

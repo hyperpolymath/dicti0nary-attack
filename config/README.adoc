@@ -1,0 +1,73 @@
+= Configuration Files
+
+This directory contains configuration files for the dicti0nary-attack tool.
+
+== Available Configurations
+
+- `default.yaml` - Default configuration with balanced settings
+- `advanced.yaml` - Advanced configuration for thorough testing
+
+== Configuration Structure
+
+[source,yaml]
+----
+generators:
+  <generator_type>:
+    # Generator-specific settings
+    min_length: 6
+    max_length: 16
+
+cracker:
+  algorithm: sha256  # Hash algorithm to use
+  workers: 4         # Number of parallel workers
+  batch_size: 1000   # Batch size for parallel processing
+
+output:
+  format: text       # Output format (text, json, csv)
+  directory: output  # Output directory
+  save_stats: true   # Whether to save statistics
+
+logging:
+  level: INFO        # Logging level (DEBUG, INFO, WARNING, ERROR)
+  file: null         # Log file path (null for stdout only)
+----
+
+== Usage
+
+Use a configuration file with the CLI:
+
+[source,bash]
+----
+dicti0nary --config config/default.yaml generate -g leetspeak -n 1000
+----
+
+== Creating Custom Configurations
+
+1. Copy one of the example configurations
+2. Modify settings as needed
+3. Use with the `--config` option
+
+== Generator Settings
+
+=== Leetspeak
+- `max_substitutions`: Maximum simultaneous character substitutions
+- `min_length`, `max_length`: Password length constraints
+
+=== Phonetic
+- `case_variations`: Whether to generate case variations
+- `min_length`, `max_length`: Password length constraints
+
+=== Pattern
+- `min_length`, `max_length`: Password length constraints
+
+=== Random
+- `min_length`, `max_length`: Password length constraints
+- `use_uppercase`: Include uppercase letters
+- `use_lowercase`: Include lowercase letters
+- `use_digits`: Include digits
+- `use_special`: Include special characters
+
+=== Markov
+- `order`: N-gram order (higher = more context)
+- `min_length`, `max_length`: Password length constraints
+

@@ -1,0 +1,174 @@
+# Mustfile.epx - Deployment Manifest for dicti0nary-attack
+# Type-safe, contract-driven deployment configuration
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-FileCopyrightText: 2025 Security Research Team
+#
+# Nickel-Augmented Ephapax Linear Logic Specification
+# See: https://github.com/hyperpolymath/mustfile
+
+{
+  # Project metadata
+  project = {
+    name = "dicti0nary-attack",
+    version = "0.1.0",
+    description = "Non-dictionary password research tool",
+    license = "GPL-3.0-or-later",
+    repository = "https://github.com/hyperpolymath/dicti0nary-attack",
+  },
+
+  # Language policy enforcement
+  language_policy = {
+    allowed = {
+      primary = ["Chapel", "Rust", "ReScript"],
+      secondary = ["Bash", "Nickel"],
+      generated = ["JavaScript"],  # Only .res.js outputs
+    },
+    banned = {
+      languages = ["TypeScript", "Python", "Go", "Java", "Kotlin", "Swift"],
+      runtimes = ["Node.js", "Bun"],
+      package_managers = ["npm", "pnpm", "yarn"],
+    },
+    exceptions = {
+      # Minimal JavaScript allowed only for:
+      # - WASM FFI glue
+      # - Browser bootstrapping
+      javascript_allowed_paths = [
+        "web/static/js/bootstrap.js",
+        "lib/es6/**/*.res.js",  # ReScript compiled output
+      ],
+    },
+  },
+
+  # Build toolchain requirements
+  toolchain = {
+    required = {
+      chapel = { min_version = "2.3.0" },
+      rust = { edition = "2021", min_version = "1.75.0" },
+      deno = { min_version = "2.0.0" },
+      just = { min_version = "1.25.0" },
+      nickel = { min_version = "1.5.0" },
+    },
+    optional = {
+      podman = { min_version = "4.0.0" },
+      emscripten = { for_wasm = true },
+    },
+    forbidden = {
+      make = "Use 'just' instead",
+      node = "Use 'deno' instead",
+      npm = "Use 'deno' instead",
+      bun = "Use 'deno' instead",
+    },
+  },
+
+  # Deployment targets
+  targets = {
+    # Native CLI target
+    cli = {
+      type = "native",
+      build_command = "just build",
+      test_command = "just test",
+      artifacts = ["bin/dicti0nary", "target/release/dict0"],
+    },
+
+    # WASM target for web
+    wasm = {
+      type = "wasm",
+      build_command = "just build-wasm",
+      artifacts = ["web/static/wasm/*.wasm"],
+      requires = ["emscripten"],
+    },
+
+    # Static web target
+    web = {
+      type = "static",
+      build_command = "deno task build:rescript",
+      serve_command = "just serve-static",
+      artifacts = ["web/", "lib/es6/"],
+    },
+
+    # Container target
+    container = {
+      type = "oci",
+      build_command = "just podman-build",
+      image_name = "dicti0nary-attack",
+      containerfile = "Containerfile",
+    },
+  },
+
+  # Quality gates (must pass before deployment)
+  quality_gates = {
+    tests = {
+      chapel = "just test",
+      rust = "cargo test",
+    },
+    lints = {
+      chapel = "just lint",
+      rust = "cargo clippy -- -D warnings",
+      rescript = "deno task build:rescript",  # Compile = type check
+    },
+    format = {
+      chapel = "just format",
+      rust = "cargo fmt --check",
+    },
+    security = {
+      rust = "cargo audit",
+      validate_offline = "just validate-offline",
+    },
+    compliance = {
+      rsr = "just validate-rsr",
+      nickel = "just nickel-check",
+    },
+  },
+
+  # Pre-commit hooks
+  hooks = {
+    pre_commit = [
+      "just format",
+      "just lint",
+      "just test",
+    ],
+    pre_push = [
+      "just quality",
+      "cargo test",
+    ],
+  },
+
+  # Package management hierarchy
+  packages = {
+    primary = "guix",  # guix.scm
+    fallback = "nix",  # flake.nix
+    javascript = "deno",  # deno.json imports
+    rust = "cargo",  # Cargo.toml
+    chapel = "mason",  # Chapel.toml
+  },
+
+  # RSR Framework compliance
+  rsr = {
+    level = "bronze",
+    score = 86,
+    offline_first = true,
+    type_safety = true,
+    memory_safety = true,
+    documentation = ["README.adoc", "CONTRIBUTING.adoc", "SECURITY.md"],
+  },
+
+  # Environment configurations
+  environments = {
+    dev = {
+      nickel_field = "dev",
+      logging = "DEBUG",
+      optimizations = false,
+    },
+    test = {
+      nickel_field = "test",
+      logging = "DEBUG",
+      optimizations = false,
+    },
+    prod = {
+      nickel_field = "prod",
+      logging = "INFO",
+      optimizations = true,
+    },
+  },
+}

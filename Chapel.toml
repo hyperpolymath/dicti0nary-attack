@@ -1,0 +1,39 @@
+# Chapel Package Configuration
+# dicti0nary-attack
+#
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# SPDX-FileCopyrightText: 2025 Security Research Team
+
+[package]
+name = "dicti0nary-attack"
+version = "0.1.0"
+authors = ["Security Research Team"]
+license = "GPL-3.0-or-later"
+description = "Non-dictionary password research tool in Chapel"
+
+[dependencies]
+# Add Chapel dependencies here when available
+
+[build]
+# Chapel compiler options
+chpl-flags = [
+    "--fast",
+    "--specialize",
+    "--cache-remote"
+]
+
+# WASM-specific build options
+[build.wasm]
+target = "wasm32-unknown-emscripten"
+chpl-flags = [
+    "--target=wasm32",
+    "-semscripten",
+    "--export-all"
+]
+
+[metadata]
+keywords = ["security", "passwords", "cryptography", "wasm", "parallel"]
+categories = ["security", "cryptography"]
+rsr-compliance = "bronze"
+rsr-score = 86
+offline-first = true

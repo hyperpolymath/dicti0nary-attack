@@ -1,0 +1,114 @@
+# RSR Framework Metadata
+# Rhodium Standard Repository compliance information
+
+rsr:
+  version: "1.0"
+  level: "bronze"
+  score: 86
+
+project:
+  name: "dicti0nary-attack"
+  version: "0.1.0"
+  description: "Security research utility for testing non-dictionary passwords"
+  language: "python"
+  license: "GPL-3.0-or-later"
+
+compliance:
+  documentation:
+    status: "compliant"
+    score: 100
+    files:
+      - README.md
+      - LICENSE
+      - CONTRIBUTING.md
+      - CODE_OF_CONDUCT.md
+      - SECURITY.md
+      - CHANGELOG.md
+      - MAINTAINERS.md
+
+  well_known:
+    status: "compliant"
+    score: 100
+    files:
+      - .well-known/security.txt
+      - .well-known/ai.txt
+      - .well-known/humans.txt
+
+  type_safety:
+    status: "partial"
+    notes: "Python with extensive type hints"
+    improvements:
+      - "Add mypy strict mode"
+      - "Add pydantic for runtime validation"
+
+  memory_safety:
+    status: "partial"
+    notes: "Python garbage collected (memory-safe by design)"
+
+  offline_first:
+    status: "compliant"
+    score: 100
+    notes: "Core functionality is 100% offline"
+
+  build_system:
+    status: "compliant"
+    score: 100
+    tools:
+      - Makefile
+      - justfile
+      - Docker
+      - docker-compose
+      - GitHub Actions
+
+  testing:
+    status: "compliant"
+    score: 100
+    coverage_target: 80
+    test_count: 50
+
+  tpcf:
+    perimeter: 3
+    name: "Community Sandbox"
+    status: "compliant"
+    score: 100
+
+  security:
+    status: "compliant"
+    score: 100
+    policies:
+      - RFC 9116 security.txt
+      - Vulnerability disclosure
+      - Security scanning (Bandit, Safety)
+      - No secrets in code
+
+  community:
+    status: "partial"
+    score: 60
+    improvements:
+      - "Issue templates" # Added!
+      - "PR templates" # Added!
+
+  licensing:
+    status: "partial"
+    score: 50
+    improvements:
+      - "SPDX identifiers in source files"
+      - "License headers in all files"
+
+next_steps:
+  - "Add SPDX identifiers to all source files"
+  - "Add license headers"
+  - "Enable Dependabot"
+  - "Add mypy to CI/CD"
+  - "Enhance type hints to 100%"
+
+path_to_silver:
+  target_score: 90
+  requirements:
+    - "Complete licensing (SPDX + headers)"
+    - "100% test coverage"
+    - "mypy integration"
+    - "Dependabot enabled"
+
+assessed: "2025-11-22"
+assessor: "Security Research Team"

@@ -1,0 +1,495 @@
+= API Documentation
+
+This document provides API documentation for using dicti0nary-attack as a Python library.
+
+== Installation
+
+[source,bash]
+----
+pip install dicti0nary-attack
+----
+
+== Quick Start
+
+[source,python]
+----
+from dicti0nary_attack.generators import LeetspeakGenerator, PatternGenerator
+from dicti0nary_attack.crackers import HashCracker
+
+# Generate passwords
+gen = LeetspeakGenerator(base_words=["password", "admin"])
+passwords = list(gen.generate(count=100))
+
+# Crack a hash
+cracker = HashCracker(config={'algorithm': 'sha256'})
+target_hash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+result = cracker.crack(target_hash, iter(passwords))
+
+if result:
+    print(f"Cracked: {result}")
+----
+
+== Generators
+
+=== Base Generator
+
+All generators inherit from `PasswordGenerator`.
+
+[source,python]
+----
+from dicti0nary_attack.generators.base import PasswordGenerator
+
+class PasswordGenerator(ABC):
+    def __init__(self, config: Optional[Dict[str, Any]] = None)
+    def generate(self, count: Optional[int] = None) -> Iterator[str]
+    def apply_filters(self, password: str) -> bool
+    def get_stats(self) -> Dict[str, int]
+    def reset_stats(self)
+----
+
+=== Leetspeak Generator
+
+[source,python]
+----
+from dicti0nary_attack.generators import LeetspeakGenerator
+
+# Basic usage
+gen = LeetspeakGenerator(base_words=["password", "admin"])
+
+# With configuration
+config = {
+    'max_substitutions': 3,
+    'min_length': 6,
+    'max_length': 16
+}
+gen = LeetspeakGenerator(base_words=["test"], config=config)
+
+# Generate passwords
+for password in gen.generate(count=100):
+    print(password)
+
+# Add more base words
+gen.add_base_words(["login", "welcome"])
+
+# Get statistics
+stats = gen.get_stats()
+print(f"Generated: {stats['generated']}, Filtered: {stats['filtered']}")
+----
+
+=== Phonetic Generator
+
+[source,python]
+----
+from dicti0nary_attack.generators import PhoneticGenerator
+
+# Basic usage
+gen = PhoneticGenerator(phrases=["see you later", "for you"])
+
+# With configuration
+config = {
+    'case_variations': True,
+    'min_length': 4,
+    'max_length': 20
+}
+gen = PhoneticGenerator(phrases=["to be or not to be"], config=config)
+
+# Generate
+passwords = list(gen.generate(count=50))
+----
+
+=== Pattern Generator
+
+[source,python]
+----
+from dicti0nary_attack.generators import PatternGenerator
+
+# Basic usage
+gen = PatternGenerator()
+
+# With configuration
+config = {
+    'min_length': 6,
+    'max_length': 16
+}
+gen = PatternGenerator(config=config)
+
+# Generate various patterns
+passwords = list(gen.generate(count=1000))
+----
+
+=== Random Generator
+
+[source,python]
+----
+from dicti0nary_attack.generators import RandomGenerator
+
+# Basic usage with defaults
+gen = RandomGenerator()
+
+# Customized character sets
+config = {
+    'min_length': 12,
+    'max_length': 20,
+    'use_uppercase': True,
+    'use_lowercase': True,
+    'use_digits': True,
+    'use_special': True
+}
+gen = RandomGenerator(config=config)
+
+# Generate random passwords
+random_passwords = list(gen.generate(count=100))
+
+# Generate pronounceable passwords
+pronounceable = list(gen.generate_pronounceable(count=50))
+----
+
+=== Markov Generator
+
+[source,python]
+----
+from dicti0nary_attack.generators import MarkovGenerator
+
+# Train on password list
+training_data = ["password123", "admin2023", "letmein1"]
+gen = MarkovGenerator(training_data=training_data)
+
+# With configuration
+config = {
+    'order': 3,  # Higher order = more context
+    'min_length': 8,
+    'max_length': 16
+}
+gen = MarkovGenerator(training_data=training_data, config=config)
+
+# Generate
+passwords = list(gen.generate(count=100))
+
+# Train on additional data
+gen.train(["more", "passwords", "here"])
+----
+
+== Hash Cracker
+
+=== Basic Cracking
+
+[source,python]
+----
+from dicti0nary_attack.crackers import HashCracker
+
+# Initialize
+cracker = HashCracker(config={
+    'algorithm': 'sha256',
+    'workers': 4,
+    'batch_size': 1000
+})
+
+# Crack a hash
+target_hash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+password_generator = iter(["test", "password", "admin"])
+
+result = cracker.crack(target_hash, password_generator)
+if result:
+    print(f"Password found: {result}")
+----
+
+=== Parallel Cracking
+
+[source,python]
+----
+# Enable parallel processing
+cracker = HashCracker(config={
+    'algorithm': 'sha256',
+    'workers': 8,
+    'batch_size': 5000
+})
+
+result = cracker.crack_parallel(target_hash, password_generator)
+----
+
+=== Cracking Multiple Hashes
+
+[source,python]
+----
+target_hashes = [
+    "hash1...",
+    "hash2...",
+    "hash3..."
+]
+
+results = cracker.crack_multiple(target_hashes, password_generator)
+
+for hash_val, password in results.items():
+    print(f"{hash_val}: {password}")
+----
+
+=== With Callback
+
+[source,python]
+----
+def on_crack(password):
+    print(f"Found: {password}")
+    # Save to database, notify user, etc.
+
+result = cracker.crack(target_hash, password_generator, callback=on_crack)
+----
+
+=== Hashing Passwords
+
+[source,python]
+----
+# Hash a password
+hash_value = HashCracker.hash_password("mypassword", "sha256")
+print(hash_value)
+
+# Supported algorithms
+algorithms = HashCracker.SUPPORTED_ALGORITHMS
+print(list(algorithms.keys()))
+----
+
+=== Statistics
+
+[source,python]
+----
+cracker.crack(target_hash, password_generator)
+
+stats = cracker.get_stats()
+print(f"Attempts: {stats['attempts']}")
+print(f"Matches: {stats['matches']}")
+print(f"Time: {stats['elapsed_time']:.2f}s")
+print(f"Rate: {stats['rate']:.2f} attempts/s")
+----
+
+== Utilities
+
+=== Wordlist Manager
+
+[source,python]
+----
+from dicti0nary_attack.utils.wordlist import WordlistManager
+
+manager = WordlistManager()
+
+# Load dictionary
+manager.load_dictionary("dictionary.txt")
+
+# Check if word is in dictionary
+is_dict = manager.is_dictionary_word("password")
+
+# Load wordlist
+for word in manager.load_wordlist("wordlist.txt"):
+    print(word)
+
+# Save wordlist
+manager.save_wordlist("output.txt", iter(passwords), max_words=10000)
+
+# Filter non-dictionary words
+filtered = manager.filter_non_dictionary(iter(passwords))
+
+# Merge wordlists
+manager.merge_wordlists(
+    ["list1.txt", "list2.txt"],
+    "merged.txt",
+    deduplicate=True
+)
+----
+
+=== Configuration Manager
+
+[source,python]
+----
+from dicti0nary_attack.utils.config import ConfigManager
+
+# Load configuration
+config = ConfigManager("config.yaml")
+
+# Get values
+algorithm = config.get('cracker.algorithm')
+workers = config.get('cracker.workers', default=4)
+
+# Set values
+config.set('custom.setting', 'value')
+
+# Save configuration
+config.save_config("new_config.yaml")
+
+# Get generator-specific config
+leetspeak_config = config.get_generator_config('leetspeak')
+
+# Get cracker config
+cracker_config = config.get_cracker_config()
+----
+
+=== Output Formatter
+
+[source,python]
+----
+from dicti0nary_attack.utils.output import OutputFormatter
+
+formatter = OutputFormatter(output_dir="results")
+
+# Save passwords
+formatter.save_passwords(
+    passwords=["p@ss1", "p@ss2"],
+    filename="passwords.txt",
+    format='text'  # or 'json', 'csv'
+)
+
+# Save statistics
+stats = {'attempts': 1000, 'matches': 5}
+formatter.save_stats(stats, "stats.json")
+
+# Generate HTML report
+formatter.generate_html_report(
+    title="Password Cracking Results",
+    stats=stats,
+    results={'hash1': 'password1'},
+    filename="report.html"
+)
+
+# Save cracking results
+formatter.save_cracking_results(
+    results={'hash': 'password'},
+    stats=stats
+)
+----
+
+== Benchmarking
+
+[source,python]
+----
+from dicti0nary_attack.benchmark import Benchmark
+
+# Benchmark a generator
+result = Benchmark.benchmark_generator('leetspeak', iterations=5, passwords_per_run=1000)
+print(f"Ops/second: {result.ops_per_second:.2f}")
+
+# Benchmark hash algorithm
+result = Benchmark.benchmark_hash_algorithm('sha256', iterations=5, passwords=1000)
+print(f"Ops/second: {result.ops_per_second:.2f}")
+
+# Benchmark cracking
+result = Benchmark.benchmark_cracking('sha256', passwords=1000, parallel=True)
+print(f"Time: {result.total_time:.2f}s")
+
+# Run all benchmarks
+results = Benchmark.run_all_benchmarks()
+Benchmark.display_results(results)
+----
+
+== Advanced Usage
+
+=== Custom Generator
+
+Create your own generator by extending `PasswordGenerator`:
+
+[source,python]
+----
+from dicti0nary_attack.generators.base import PasswordGenerator
+from typing import Iterator, Optional
+
+class CustomGenerator(PasswordGenerator):
+    def generate(self, count: Optional[int] = None) -> Iterator[str]:
+        generated = 0
+
+        while count is None or generated < count:
+            # Your password generation logic
+            password = "custom_logic_here"
+
+            if self.apply_filters(password):
+                self.stats['generated'] += 1
+                generated += 1
+                yield password
+
+# Use it
+gen = CustomGenerator(config={'min_length': 8})
+passwords = list(gen.generate(count=100))
+----
+
+=== Combining Generators
+
+[source,python]
+----
+from itertools import chain
+
+gen1 = LeetspeakGenerator()
+gen2 = PhoneticGenerator()
+gen3 = PatternGenerator()
+
+# Combine outputs
+combined = chain(
+    gen1.generate(count=1000),
+    gen2.generate(count=1000),
+    gen3.generate(count=1000)
+)
+
+# Use combined generator
+cracker = HashCracker(config={'algorithm': 'sha256'})
+result = cracker.crack(target_hash, combined)
+----
+
+=== Progress Tracking
+
+[source,python]
+----
+from tqdm import tqdm
+
+gen = PatternGenerator()
+cracker = HashCracker(config={'algorithm': 'sha256'})
+
+passwords = gen.generate(count=10000)
+passwords_list = list(tqdm(passwords, total=10000, desc="Generating"))
+
+with tqdm(total=len(passwords_list), desc="Cracking") as pbar:
+    for i, password in enumerate(passwords_list):
+        # Track progress
+        if i % 100 == 0:
+            pbar.update(100)
+
+        # Check hash
+        hash_val = HashCracker.hash_password(password, 'sha256')
+        if hash_val == target_hash:
+            print(f"Found: {password}")
+            break
+----
+
+== Error Handling
+
+[source,python]
+----
+from dicti0nary_attack.crackers import HashCracker
+from dicti0nary_attack.generators import LeetspeakGenerator
+
+try:
+    # Invalid algorithm
+    cracker = HashCracker(config={'algorithm': 'invalid'})
+except ValueError as e:
+    print(f"Error: {e}")
+
+try:
+    # Empty charset for random generator
+    gen = RandomGenerator(config={
+        'use_uppercase': False,
+        'use_lowercase': False,
+        'use_digits': False,
+        'use_special': False
+    })
+    list(gen.generate(count=10))
+except ValueError as e:
+    print(f"Error: {e}")
+----
+
+== Best Practices
+
+1. _Use Iterators_: Generators return iterators to save memory
+2. _Configure Appropriately_: Adjust min/max lengths and other params
+3. _Monitor Statistics_: Check `get_stats()` for performance info
+4. _Parallel Processing_: Use for CPU-intensive tasks
+5. _Batch Operations_: Generate wordlists for reuse
+6. _Error Handling_: Always handle potential errors
+7. _Resource Management_: Be mindful of memory with large wordlists
+
+== License
+
+GPL-3.0 - See LICENSE file for details
+

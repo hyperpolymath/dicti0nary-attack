@@ -1,0 +1,43 @@
+# Default configuration for dicti0nary-attack
+
+generators:
+  leetspeak:
+    max_substitutions: 3
+    min_length: 6
+    max_length: 16
+
+  phonetic:
+    case_variations: true
+    min_length: 4
+    max_length: 20
+
+  pattern:
+    min_length: 6
+    max_length: 16
+
+  random:
+    min_length: 8
+    max_length: 16
+    use_uppercase: true
+    use_lowercase: true
+    use_digits: true
+    use_special: false
+
+  markov:
+    order: 2
+    min_length: 6
+    max_length: 16
+
+cracker:
+  algorithm: sha256
+  workers: 4
+  batch_size: 1000
+
+output:
+  format: text
+  directory: output
+  save_stats: true
+
+logging:
+  level: INFO
+  file: null  # Set to a path to log to file

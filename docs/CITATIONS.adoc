@@ -1,0 +1,36 @@
+= dicti0nary-attack - Citation Guide
+:toc:
+
+== BibTeX
+
+[source,bibtex]
+----
+@software{dicti0nary-attack_2025,
+  author = {Polymath, Hyper},
+  title = {dicti0nary-attack},
+  year = {2025},
+  url = {https://github.com/hyperpolymath/dicti0nary-attack},
+  license = {PMPL-1.0-or-later}
+}
+----
+
+== Harvard Style
+
+Polymath, H. (2025) _dicti0nary-attack_ [Computer software]. Available at: https://github.com/hyperpolymath/dicti0nary-attack
+
+== OSCOLA
+
+Hyper Polymath, 'dicti0nary-attack' (2025) <https://github.com/hyperpolymath/dicti0nary-attack>
+
+== MLA
+
+Polymath, Hyper. "dicti0nary-attack." 2025, github.com/hyperpolymath/dicti0nary-attack.
+
+== APA 7
+
+Polymath, H. (2025). _dicti0nary-attack_ [Computer software]. GitHub. https://github.com/hyperpolymath/dicti0nary-attack
+
+== See Also
+
+* link:../CITATION.cff[CITATION.cff]
+* link:../codemeta.json[codemeta.json]

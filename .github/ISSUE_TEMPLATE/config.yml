@@ -1,0 +1,13 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security Vulnerability
+    url: https://github.com/Hyperpolymath/dicti0nary-attack/security/advisories/new
+    about: Report a security vulnerability (DO NOT use public issues)
+
+  - name: Question or Discussion
+    url: https://github.com/Hyperpolymath/dicti0nary-attack/discussions
+    about: Ask questions or discuss ideas with the community
+
+  - name: Documentation
+    url: https://github.com/Hyperpolymath/dicti0nary-attack/tree/main/docs
+    about: Read the documentation for usage help

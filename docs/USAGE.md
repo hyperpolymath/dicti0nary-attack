@@ -1,0 +1,341 @@
+# Usage Guide
+
+This guide provides detailed instructions on using the dicti0nary-attack tool.
+
+## Table of Contents
+
+1. [Installation](#installation)
+2. [Quick Start](#quick-start)
+3. [Commands](#commands)
+4. [Generators](#generators)
+5. [Hash Cracking](#hash-cracking)
+6. [Configuration](#configuration)
+7. [Examples](#examples)
+
+## Installation
+
+### From Source
+
+```bash
+git clone https://github.com/Hyperpolymath/dicti0nary-attack.git
+cd dicti0nary-attack
+pip install -e .
+```
+
+### Using pip
+
+```bash
+pip install dicti0nary-attack
+```
+
+## Quick Start
+
+Generate 1000 passwords using leetspeak:
+
+```bash
+dicti0nary generate -g leetspeak -n 1000
+```
+
+Crack a SHA256 hash:
+
+```bash
+dicti0nary crack <hash> -a sha256 -g pattern
+```
+
+## Commands
+
+### generate
+
+Generate non-dictionary passwords.
+
+```bash
+dicti0nary generate [OPTIONS]
+```
+
+Options:
+- `-g, --generator` - Generator type (leetspeak, phonetic, pattern, random, markov)
+- `-n, --count` - Number of passwords to generate
+- `-o, --output` - Output file path
+- `-f, --format` - Output format (text, json, csv)
+- `--min-length` - Minimum password length
+- `--max-length` - Maximum password length
+
+Examples:
+
+```bash
+# Generate 5000 leetspeak passwords
+dicti0nary generate -g leetspeak -n 5000
+
+# Generate passwords and save to file
+dicti0nary generate -g pattern -n 10000 -o passwords.txt
+
+# Generate with custom length constraints
+dicti0nary generate -g random -n 1000 --min-length 12 --max-length 20
+```
+
+### crack
+
+Crack a password hash.
+
+```bash
+dicti0nary crack <HASH> [OPTIONS]
+```
+
+Options:
+- `-a, --algorithm` - Hash algorithm (md5, sha1, sha256, sha512, etc.)
+- `-g, --generator` - Generator to use for passwords
+- `-w, --wordlist` - Use wordlist file instead of generator
+- `-p, --parallel` - Enable parallel processing
+- `--workers` - Number of worker processes (default: 4)
+
+Examples:
+
+```bash
+# Crack using pattern generator
+dicti0nary crack 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8 -a sha256 -g pattern
+
+# Crack using wordlist
+dicti0nary crack <hash> -a md5 -w wordlists/my_list.txt
+
+# Crack with parallel processing
+dicti0nary crack <hash> -a sha256 -g leetspeak -p --workers 8
+```
+
+### create-wordlist
+
+Create a custom wordlist file.
+
+```bash
+dicti0nary create-wordlist <PATH> [OPTIONS]
+```
+
+Options:
+- `-g, --generator` - Generator type (required)
+- `-n, --count` - Number of passwords to generate (default: 10000)
+
+Examples:
+
+```bash
+# Create leetspeak wordlist
+dicti0nary create-wordlist wordlists/leetspeak.txt -g leetspeak -n 50000
+
+# Create phonetic wordlist
+dicti0nary create-wordlist wordlists/phonetic.txt -g phonetic -n 10000
+```
+
+### hash-password
+
+Hash a password for testing.
+
+```bash
+dicti0nary hash-password <PASSWORD> [OPTIONS]
+```
+
+Options:
+- `-a, --algorithm` - Hash algorithm (default: sha256)
+
+Examples:
+
+```bash
+# Hash with SHA256
+dicti0nary hash-password "mypassword"
+
+# Hash with MD5
+dicti0nary hash-password "mypassword" -a md5
+```
+
+### info
+
+Display information about available generators and algorithms.
+
+```bash
+dicti0nary info
+```
+
+## Generators
+
+### Leetspeak Generator
+
+Converts normal words using character substitutions:
+- a → 4, @
+- e → 3
+- i → 1, !
+- o → 0
+- s → 5, $
+- etc.
+
+Best for: Passwords where users think they're clever (P@ssw0rd)
+
+### Phonetic Generator
+
+Uses phonetic substitutions:
+- for → 4
+- to → 2
+- you → u
+- see → c
+- etc.
+
+Best for: Passwords using text-speak (cu2nite, brb)
+
+### Pattern Generator
+
+Generates pattern-based passwords:
+- Keyboard walks (qwerty, asdfgh)
+- Sequential patterns (abc123, 123456)
+- Date patterns (01011990)
+- Repeating patterns (aaabbb)
+
+Best for: Predictable patterns
+
+### Random Generator
+
+Creates random character combinations.
+
+Best for: High-entropy testing
+
+### Markov Generator
+
+Uses Markov chains to generate statistically similar passwords based on training data.
+
+Best for: Mimicking password patterns from breached databases
+
+## Hash Cracking
+
+### Supported Algorithms
+
+- MD5 (128-bit)
+- SHA1 (160-bit)
+- SHA224, SHA256, SHA384, SHA512
+- BLAKE2b, BLAKE2s
+
+### Performance Tips
+
+1. **Use Parallel Processing**: Enable `-p` flag for multi-core systems
+2. **Adjust Worker Count**: Use `--workers` to match your CPU cores
+3. **Choose Right Generator**: Pattern generator is often fastest for common passwords
+4. **Batch Size**: Configure in config file for optimal performance
+
+### Cracking Multiple Hashes
+
+Generate passwords once and test against multiple hashes by using wordlist mode:
+
+```bash
+# Generate wordlist
+dicti0nary create-wordlist wordlists/test.txt -g pattern -n 100000
+
+# Use for multiple cracks
+dicti0nary crack <hash1> -w wordlists/test.txt -a sha256
+dicti0nary crack <hash2> -w wordlists/test.txt -a sha256
+```
+
+## Configuration
+
+### Using Configuration Files
+
+Create a YAML or JSON configuration file:
+
+```yaml
+# my_config.yaml
+generators:
+  leetspeak:
+    max_substitutions: 5
+    min_length: 8
+    max_length: 20
+
+cracker:
+  algorithm: sha512
+  workers: 8
+  batch_size: 5000
+```
+
+Use with commands:
+
+```bash
+dicti0nary --config my_config.yaml generate -g leetspeak -n 1000
+```
+
+### Environment Variables
+
+Set logging level:
+
+```bash
+export DICTI0NARY_LOG_LEVEL=DEBUG
+dicti0nary generate -g pattern -n 100
+```
+
+## Examples
+
+### Example 1: Security Audit
+
+Test if users are using leetspeak variations of dictionary words:
+
+```bash
+# Generate leetspeak variations
+dicti0nary create-wordlist audit_wordlist.txt -g leetspeak -n 100000
+
+# Test against company password hashes
+dicti0nary crack <hash> -w audit_wordlist.txt -a sha256
+```
+
+### Example 2: CTF Competition
+
+Quickly test common non-dictionary patterns:
+
+```bash
+dicti0nary crack <ctf_hash> -a md5 -g pattern -p
+```
+
+### Example 3: Password Strength Research
+
+Generate datasets for password strength analysis:
+
+```bash
+# Generate multiple wordlists
+dicti0nary create-wordlist data/leetspeak.txt -g leetspeak -n 50000
+dicti0nary create-wordlist data/phonetic.txt -g phonetic -n 50000
+dicti0nary create-wordlist data/patterns.txt -g pattern -n 50000
+
+# Analyze with your tools
+python analyze_passwords.py data/*.txt
+```
+
+## Legal and Ethical Considerations
+
+⚠️ **WARNING**: This tool is for authorized security testing only.
+
+**Authorized Use:**
+- Penetration testing with explicit written permission
+- Security audits of systems you own
+- CTF competitions
+- Academic research
+- Password strength analysis on your own data
+
+**Prohibited Use:**
+- Unauthorized access to computer systems
+- Cracking passwords without permission
+- Any illegal activity
+
+Violating these terms may result in criminal prosecution under computer fraud and abuse laws.
+
+## Getting Help
+
+View built-in help:
+
+```bash
+dicti0nary --help
+dicti0nary generate --help
+dicti0nary crack --help
+```
+
+Report issues:
+- GitHub: https://github.com/Hyperpolymath/dicti0nary-attack/issues
+
+## Performance Benchmarks
+
+Run performance benchmarks:
+
+```bash
+python -m dicti0nary_attack.benchmark
+```
+
+This will test all generators and hash algorithms to help you optimize your workflow.

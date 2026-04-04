@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dicti0nary-attack | Non-Dictionary Password Research</title>
+
+    <!-- CSS-first design -->
+    <link rel="stylesheet" href="static/css/main.css">
+
+    <!-- Security headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+
+    <!-- Metadata -->
+    <meta name="description" content="Chapel/WASM-powered non-dictionary password research tool">
+    <meta name="keywords" content="security, password, cracking, chapel, wasm, offline-first">
+    <meta name="author" content="Security Research Team">
+
+    <!-- RSR Compliance -->
+    <meta name="rsr-compliance" content="bronze">
+    <meta name="rsr-score" content="86">
+    <meta name="offline-first" content="true">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <h1 class="site-title">🔐 dicti0nary-attack</h1>
+            <p class="site-tagline">Non-Dictionary Password Research Tool</p>
+            <p class="tech-stack">Powered by Chapel → WASM | Offline-First | RSR Bronze (86%)</p>
+        </div>
+    </header>
+
+    <!-- Warning Banner -->
+    <aside class="warning-banner" role="alert">
+        <div class="container">
+            <strong>⚠️ Legal Notice:</strong> This tool is for authorized security testing only.
+            Unauthorized access to computer systems is illegal.
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="site-main">
+        <div class="container">
+            <!-- Navigation Tabs -->
+            <nav class="tab-nav" role="tablist">
+                <button class="tab-button active" data-tab="generate" role="tab" aria-selected="true">Generate</button>
+                <button class="tab-button" data-tab="crack" role="tab">Crack</button>
+                <button class="tab-button" data-tab="hash" role="tab">Hash</button>
+                <button class="tab-button" data-tab="about" role="tab">About</button>
+            </nav>
+
+            <!-- Generate Tab -->
+            <section id="generate" class="tab-panel active" role="tabpanel">
+                <h2>Generate Non-Dictionary Passwords</h2>
+
+                <form id="generate-form" class="tool-form">
+                    <div class="form-group">
+                        <label for="gen-type">Generator Type:</label>
+                        <select id="gen-type" name="generator">
+                            <option value="leetspeak">Leetspeak (a→4, e→3)</option>
+                            <option value="phonetic">Phonetic (for→4, to→2)</option>
+                            <option value="pattern" selected>Pattern (keyboard walks)</option>
+                            <option value="random">Random</option>
+                            <option value="markov">Markov Chain</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gen-count">Count:</label>
+                        <input type="number" id="gen-count" name="count" value="100" min="1" max="10000">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gen-min">Min Length:</label>
+                            <input type="number" id="gen-min" name="minLength" value="6" min="1" max="50">
+                        </div>
+                        <div class="form-group">
+                            <label for="gen-max">Max Length:</label>
+                            <input type="number" id="gen-max" name="maxLength" value="16" min="1" max="50">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Generate</button>
+                </form>
+
+                <div id="generate-output" class="output-panel" hidden>
+                    <h3>Generated Passwords</h3>
+                    <div class="output-stats"></div>
+                    <pre class="output-content"></pre>
+                    <button class="btn btn-secondary" onclick="copyOutput('generate-output')">Copy</button>
+                </div>
+            </section>
+
+            <!-- Crack Tab -->
+            <section id="crack" class="tab-panel" role="tabpanel" hidden>
+                <h2>Crack Password Hash</h2>
+
+                <form id="crack-form" class="tool-form">
+                    <div class="form-group">
+                        <label for="crack-hash">Hash:</label>
+                        <input type="text" id="crack-hash" name="hash" placeholder="Enter hash to crack" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="crack-algo">Algorithm:</label>
+                        <select id="crack-algo" name="algorithm">
+                            <option value="md5">MD5</option>
+                            <option value="sha1">SHA1</option>
+                            <option value="sha256" selected>SHA256</option>
+                            <option value="sha512">SHA512</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="crack-gen">Generator:</label>
+                        <select id="crack-gen" name="generator">
+                            <option value="pattern" selected>Pattern</option>
+                            <option value="leetspeak">Leetspeak</option>
+                            <option value="phonetic">Phonetic</option>
+                            <option value="random">Random</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="crack-max">Max Attempts:</label>
+                        <input type="number" id="crack-max" name="maxAttempts" value="10000" min="100" max="100000">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Crack Hash</button>
+                </form>
+
+                <div id="crack-output" class="output-panel" hidden>
+                    <h3>Cracking Results</h3>
+                    <div class="output-content"></div>
+                </div>
+            </section>
+
+            <!-- Hash Tab -->
+            <section id="hash" class="tab-panel" role="tabpanel" hidden>
+                <h2>Hash a Password</h2>
+
+                <form id="hash-form" class="tool-form">
+                    <div class="form-group">
+                        <label for="hash-input">Password:</label>
+                        <input type="text" id="hash-input" name="password" placeholder="Enter password to hash" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hash-algo">Algorithm:</label>
+                        <select id="hash-algo" name="algorithm">
+                            <option value="md5">MD5</option>
+                            <option value="sha1">SHA1</option>
+                            <option value="sha256" selected>SHA256</option>
+                            <option value="sha512">SHA512</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Hash</button>
+                </form>
+
+                <div id="hash-output" class="output-panel" hidden>
+                    <h3>Hash Result</h3>
+                    <pre class="output-content"></pre>
+                    <button class="btn btn-secondary" onclick="copyOutput('hash-output')">Copy</button>
+                </div>
+            </section>
+
+            <!-- About Tab -->
+            <section id="about" class="tab-panel" role="tabpanel" hidden>
+                <h2>About dicti0nary-attack</h2>
+
+                <div class="about-content">
+                    <h3>What is this?</h3>
+                    <p>A password security research tool that focuses on <em>non-dictionary</em> passwords —
+                    the creative variations users think make their passwords secure (like "P@ssw0rd" or "qwerty123").</p>
+
+                    <h3>Architecture</h3>
+                    <ul>
+                        <li><strong>Language:</strong> Chapel (parallel computing language)</li>
+                        <li><strong>Frontend:</strong> CSS-first design with WASM</li>
+                        <li><strong>Execution:</strong> Entirely client-side (offline-first)</li>
+                        <li><strong>No Backend:</strong> Pure static site, no server</li>
+                    </ul>
+
+                    <h3>Features</h3>
+                    <ul>
+                        <li>5 password generators (Leetspeak, Phonetic, Pattern, Random, Markov)</li>
+                        <li>4 hash algorithms (MD5, SHA1, SHA256, SHA512)</li>
+                        <li>Parallel cracking using Chapel's data parallelism</li>
+                        <li>Multilingual support via 1000Langs integration</li>
+                        <li>100% offline-first operation</li>
+                        <li>RSR Framework Bronze compliance (86%)</li>
+                    </ul>
+
+                    <h3>Legal & Ethical Use</h3>
+                    <p class="warning">This tool is for <strong>authorized security testing only</strong>:</p>
+                    <ul>
+                        <li>✅ Penetration testing with permission</li>
+                        <li>✅ Security audits of owned systems</li>
+                        <li>✅ CTF competitions</li>
+                        <li>✅ Academic research</li>
+                        <li>❌ Unauthorized access (illegal)</li>
+                    </ul>
+
+                    <h3>Documentation</h3>
+                    <ul>
+                        <li><a href="README.adoc">README</a></li>
+                        <li><a href="SECURITY.adoc">Security Policy</a></li>
+                        <li><a href="RSR_COMPLIANCE.adoc">RSR Compliance</a></li>
+                        <li><a href="docs/USAGE.adoc">Usage Guide</a></li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>dicti0nary-attack v0.1.0 | GPL-3.0-or-later | Made with Chapel &amp; WASM</p>
+            <p>RSR Bronze (86%) | Offline-First | TPCF Perimeter 3</p>
+        </div>
+    </footer>
+
+    <!-- Load ReScript-compiled modules -->
+    <!-- Primary: Compiled ReScript (ES6 modules) -->
+    <script type="module">
+      // Try to load compiled ReScript modules
+      try {
+        await import('./lib/es6/web/src/Main.res.js');
+        await import('./lib/es6/web/src/WasmLoader.res.js');
+        await import('./lib/es6/web/src/App.res.js');
+        console.log('ReScript modules loaded');
+      } catch (e) {
+        console.log('ReScript not compiled, loading bootstrap fallback');
+        // Fallback is loaded via nomodule script below
+      }
+    </script>
+    <!-- Fallback: Bootstrap loader for non-module browsers or uncompiled state -->
+    <script nomodule src="static/js/bootstrap.js"></script>
+</body>
+</html>
