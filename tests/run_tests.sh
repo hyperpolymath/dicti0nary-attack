@@ -17,9 +17,9 @@ echo
 
 # Check for Chapel compiler
 if ! command -v chpl &> /dev/null; then
-    echo "❌ Chapel compiler (chpl) not found"
-    echo "   Please install Chapel: https://chapel-lang.org"
-    exit 1
+    echo "SKIP: Chapel compiler (chpl) not found"
+    echo "   Install Chapel from https://chapel-lang.org to run these tests"
+    exit 0
 fi
 
 echo "✓ Chapel compiler found: $(chpl --version | head -n1)"

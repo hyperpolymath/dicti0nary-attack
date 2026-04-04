@@ -50,12 +50,34 @@ check:
 # Run all quality checks
 quality: format lint check
 
-# === Testing Commands ===
+# === Testing Commands (Grade B — 6 independently runnable targets) ===
 
-# Run Chapel tests
-test:
-    chpl --main-module Tests tests/*.chpl && ./Tests
-    rm -f Tests Tests_real
+# Run all 6 Grade B test targets
+test: test-structure test-chapel test-zig test-nickel test-rust test-mustfile
+
+# T1: Run Chapel tests (SKIP gracefully if chpl not installed)
+test-chapel:
+    bash tests/run_tests.sh
+
+# T2: Run Zig FFI integration tests
+test-zig:
+    zig test ffi/zig/test/integration_test.zig
+
+# T3: Typecheck Nickel config
+test-nickel:
+    just nickel-check
+
+# T4: Run Rust tests across workspace
+test-rust:
+    cargo test --all
+
+# T5: Validate repository structure
+test-structure:
+    bash tests/validate_structure.sh
+
+# T6: Validate Mustfile.epx
+test-mustfile:
+    just mustfile-check
 
 # Run tests with coverage
 test-cov:

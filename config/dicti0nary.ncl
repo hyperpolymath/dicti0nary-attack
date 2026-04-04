@@ -68,7 +68,7 @@
       stack_size = "1MB",
     },
 
-    1000langs = {
+    multilang = {
       enabled = true,
       vendor_path = "vendor/1000Langs",
       default_language = "en",
@@ -146,7 +146,7 @@
 
     # Research mode: Multilingual focus
     research = prod & {
-      "1000langs".extract_languages = [
+      multilang.extract_languages = [
         "en", "es", "fr", "de", "it", "pt", "ru", "zh",
         "ja", "ko", "ar", "hi", "bn", "pa", "te", "mr",
       ],
