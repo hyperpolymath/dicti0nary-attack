@@ -1,0 +1,143 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2026 Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= dicti0nary-attack — EXPLAINME
+:toc: preamble
+:icons: font
+
+This file maps README.adoc claims to their implementation evidence for
+sceptical developers.
+
+== "A comprehensive security research utility for testing non-dictionary passwords"
+
+[quote, README.adoc]
+____
+Everyone knows that it's easy to crack a password if it appears in a
+dictionary. dicti0nary-attack is a powerful tool for generating and testing
+passwords that are NOT in traditional dictionaries.
+____
+
+How this is implemented::
+The Chapel generators live in link:src/generators/[`src/generators/`]:
+`Leetspeak.chpl` applies character substitution tables (a→4, e→3, o→0, etc.),
+`Phonetic.chpl` applies phonetic substitutions (for→4, to→2, you→u),
+`Pattern.chpl` generates keyboard walks and date-based patterns,
+`Random.chpl` generates uniform random strings, and `Markov.chpl` uses a
+statistical model trained on real password data. The Rust workspace in
+link:crates/[`crates/`] mirrors the generator logic for the web WASM target
+(`crates/generators/`). The main entry point is link:src/main.rs[`src/main.rs`]
+for the Rust CLI and link:src/dicti0nary.chpl[`src/dicti0nary.chpl`] for Chapel.
+
+Caveat::
+The Markov chain generator requires training data. The repository includes
+small sample wordlists in `wordlists/`; for production-grade generation, a
+larger corpus must be supplied separately.
+
+== "Multi-algorithm hash cracking with parallel processing"
+
+[quote, README.adoc]
+____
+Multi-Algorithm Support: MD5, SHA1, SHA224, SHA256, SHA384, SHA512, BLAKE2b,
+BLAKE2s
+____
+
+How this is implemented::
+The Chapel hash cracker in link:src/crackers/HashCracker.chpl[`src/crackers/HashCracker.chpl`]
+dispatches to the selected algorithm using Chapel's `coforall` for parallel
+processing across cores. The Rust crate in `crates/crackers/` implements the
+same algorithms using the `sha2`, `sha1`, and `blake2` crates. The
+link:web/src/Hash.res[`web/src/Hash.res`] ReScript module handles hashing in
+the browser WASM context.
+
+Caveat::
+MD5 and SHA1 are included for legacy hash cracking in authorised security
+assessments. They must not be used for any new security-relevant hashing;
+SHA-256+ is required per the hyperpolymath security policy.
+
+== "Chapel + Rust + ReScript polyglot architecture"
+
+[quote, README.adoc]
+____
+Architecture: Chapel (generators/crackers), Rust workspace crates (core
+types), ReScript web interface, compiled to WASM.
+____
+
+How this is implemented::
+The three-language split is enforced by the directory structure:
+`src/generators/*.chpl` and `src/crackers/*.chpl` are Chapel (parallel HPC
+computation), `crates/` is a Rust workspace (type definitions + WASM target),
+and `web/src/*.res` is ReScript (browser UI, compiles to JavaScript via
+`rescript.json`). The link:justfile[`justfile`] wires the build pipeline:
+`just build` compiles Chapel, `just build-wasm` compiles Rust to WASM,
+`deno task build:rescript` compiles the web interface.
+
+Caveat::
+Chapel is not a standard hyperpolymath language (it was permitted for this
+project's HPC use case). Future iterations may migrate the parallel generation
+logic to Rust with Rayon.
+
+== "Rich CLI + web interface"
+
+[quote, README.adoc]
+____
+Rich CLI Interface, Web Interface for browser-based GUI
+____
+
+How this is implemented::
+The CLI in link:src/main.rs[`src/main.rs`] uses the Rust `clap` crate for
+argument parsing and displays progress bars. The static web interface in
+link:web/[`web/`] is a Deno-served ReScript application that loads WASM
+modules from `web/static/wasm/`. Run via `just serve-static`.
+
+Caveat::
+The web interface requires a successful `just build-wasm` (Chapel → WASM
+compilation) before the password generation features work in browser. The hash
+cracking via WASM is CPU-bound and significantly slower than the native CLI.
+
+== Dogfooded Across The Account
+
+[cols="1,2,2", options="header"]
+|===
+| Technology / Pattern | Used here | Also used in
+
+| Chapel for parallel computation
+| Password generation with `coforall`
+| This is the primary Chapel usage in the account
+
+| Rust WASM target
+| Browser password generation
+| link:https://github.com/hyperpolymath/phantom-metal-taste[phantom-metal-taste]
+  (gap score computation WASM)
+
+| ReScript web UI
+| Browser interface for generators
+| link:https://github.com/hyperpolymath/gossamer[gossamer],
+  link:https://github.com/hyperpolymath/blue-screen-of-app[blue-screen-of-app]
+
+| Containerfile + Podman
+| `podman-compose.yml` for container deployment
+| link:https://github.com/hyperpolymath/burble[burble],
+  link:https://github.com/hyperpolymath/stapeln[stapeln]
+
+| Nickel configuration
+| `config/dicti0nary.ncl` for generator settings
+| link:https://github.com/hyperpolymath/blue-screen-of-app[blue-screen-of-app],
+  link:https://github.com/hyperpolymath/standards[standards]
+|===
+
+== Known Gaps
+
+[CAUTION]
+====
+The README references `pytest` and Python test coverage in several places.
+Python is not permitted in hyperpolymath projects (except SaltStack). These
+references are legacy from an earlier version and must be replaced with the
+Chapel test suite (`just test`) and Rust tests (`cargo test`).
+====
+
+[CAUTION]
+====
+Docker references appear in the README (`docker build`, `docker run`). The
+hyperpolymath standard mandates Podman and Containerfile. The functional
+`Containerfile` and `podman-compose.yml` are correct; the Docker instructions
+in the README are legacy text that should be removed.
+====
