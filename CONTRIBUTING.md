@@ -42,7 +42,7 @@ dicti0nary-attack/
 ├── README.adoc
 ├── SECURITY.md
 ├── flake.nix            # Nix flake (Perimeter 1)
-└── justfile             # Task runner (Perimeter 1)
+└── Justfile             # Task runner (Perimeter 1)
 ```
 
 ---

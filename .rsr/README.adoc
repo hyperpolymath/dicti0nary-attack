@@ -19,7 +19,7 @@ Machine-readable compliance information:
 
 [source,bash]
 ----
-# Using justfile
+# Using Justfile
 just validate-rsr
 
 # Manual check

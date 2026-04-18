@@ -229,7 +229,7 @@ See RSR_COMPLIANCE.md for detailed compliance report
 
 === Build Tools (4 files)
 - Makefile
-- justfile
+- Justfile
 - Dockerfile
 - docker-compose.yml
 
@@ -308,7 +308,7 @@ _Achievable:_ Yes, within 1-2 sprints
 
 === For Maintainers
 
-1. _Automation:_ justfile with 30+ commands
+1. _Automation:_ Justfile with 30+ commands
 2. _Validation:_ Automated RSR compliance checks
 3. _Governance:_ Clear maintainer roles and processes
 4. _Security:_ Structured vulnerability handling

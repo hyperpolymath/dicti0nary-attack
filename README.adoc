@@ -251,7 +251,7 @@ dicti0nary-attack/
 ├── tests/                        # Chapel test suite
 ├── docs/                         # Documentation
 ├── wordlists/                    # Example wordlists
-├── justfile                      # Task automation
+├── Justfile                      # Task automation
 ├── Cargo.toml                    # Rust workspace manifest
 ├── Chapel.toml                   # Chapel config
 ├── rescript.json                 # ReScript config

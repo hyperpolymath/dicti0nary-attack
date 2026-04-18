@@ -73,7 +73,7 @@ This repository follows the Hyperpolymath Language Policy:
 | Python | Chapel/Rust |
 | Node.js | Deno |
 | npm/bun | Deno |
-| Makefile | justfile |
+| Makefile | Justfile |
 
 ## Verification
 
