@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: PMPL-1.0-or-later
+// SPDX-License-Identifier: MPL-2.0
 // dicti0nary-attack — Zig FFI Integration Tests
 //
 // These tests verify the Zig FFI layer logic for the password generator/cracker.

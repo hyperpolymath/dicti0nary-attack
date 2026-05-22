@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Jonathan D.A. Jewell <jonathan@hyperpolymath.org>"]
 description = "Password dictionary generator and hash cracker with multiple generation strategies"
-license = "PMPL-1.0-or-later"
+license = "MPL-2.0"
 repository = "https://github.com/hyperpolymath/dicti0nary-attack"
 
 [workspace]

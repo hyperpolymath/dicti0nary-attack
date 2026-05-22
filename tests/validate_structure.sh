@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SPDX-License-Identifier: PMPL-1.0-or-later
+# SPDX-License-Identifier: MPL-2.0
 # Structural validation for dicti0nary-attack (CRG Grade B)
 # Checks that all required RSR files and directories are present.
 set -euo pipefail
