@@ -9,6 +9,7 @@ on:
   schedule:
     - cron: '0 6 1 * *'
 
+
 permissions: read-all
 
 jobs:
@@ -22,6 +23,8 @@ jobs:
       matrix:
         include:
           - language: javascript-typescript
+            build-mode: none
+          - language: cpp
             build-mode: none
 
     steps:
