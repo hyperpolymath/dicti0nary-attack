@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 = Project Maintainers
 
 This document lists the active maintainers of the dicti0nary-attack project and their areas of responsibility.

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 //! Core types and traits for dicti0nary-attack
 //!
 //! This crate provides the foundational types for password generation and hash cracking.

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 = Plugin Development Guide
 
 The dicti0nary-attack tool supports a plugin architecture for extending functionality with custom generators, crackers, and other features.

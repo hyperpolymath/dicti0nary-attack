@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 // dicti0nary-attack — Zig FFI Integration Tests
 //
 // These tests verify the Zig FFI layer logic for the password generator/cracker.
