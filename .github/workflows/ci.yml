@@ -11,6 +11,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
       matrix:
         python-version: ['3.10', '3.11', '3.12']
@@ -59,6 +60,7 @@ jobs:
   security:
     name: Security Scan
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
     - name: Checkout code
@@ -85,6 +87,7 @@ jobs:
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs: [test]
 
     steps:
@@ -111,6 +114,7 @@ jobs:
   benchmark:
     name: Performance Benchmarks
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs: [test]
 
     steps:
@@ -135,6 +139,7 @@ jobs:
   docs:
     name: Build Documentation
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
     - name: Checkout code
