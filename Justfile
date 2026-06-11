@@ -336,3 +336,6 @@ setup-hooks:
     @chmod +x .git/hooks/pre-commit
     @echo "✅ Pre-commit hooks installed"
 
+
+secret-scan-trufflehog:
+    @command -v trufflehog >/dev/null && trufflehog filesystem . --only-verified || true
