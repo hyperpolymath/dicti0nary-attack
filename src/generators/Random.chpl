@@ -1,7 +1,7 @@
 /*
  * Random Password Generator
  *
- * SPDX-License-Identifier: GPL-3.0-or-later
+ * SPDX-License-Identifier: MPL-2.0
  * SPDX-FileCopyrightText: 2025 Security Research Team
  *
  * Generates cryptographically random passwords with configurable character sets.

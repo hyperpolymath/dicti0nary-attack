@@ -4,7 +4,7 @@
  * Bootstrap loader for dicti0nary-attack
  * Loads compiled ReScript modules
  *
- * SPDX-License-Identifier: GPL-3.0-or-later
+ * SPDX-License-Identifier: MPL-2.0
  * SPDX-FileCopyrightText: 2025 Security Research Team
  *
  * This is the ONLY JavaScript file that should exist.

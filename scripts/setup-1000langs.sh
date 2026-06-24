@@ -3,7 +3,7 @@
 # Setup 1000Langs Integration
 # Clone and initialize the 1000Langs multilingual corpus repository
 #
-# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: MPL-2.0
 # SPDX-FileCopyrightText: 2025 Security Research Team
 
 set -euo pipefail
