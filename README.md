@@ -2,13 +2,13 @@
 
 = 🔐 dicti0nary-attack
 
-image:https://img.shields.io/badge/License-PMPL--1.0-blue.svg[License: PMPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"]
+image:https://img.shields.io/badge/License-MPL--2.0-blue.svg[License: PMPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"]
 
 > A comprehensive security research utility for testing non-dictionary passwords
 
 Everyone knows that it's easy to crack a password if it appears in a dictionary. _dicti0nary-attack_ is a humorous inversion of that concept - it's a powerful tool for generating and testing passwords that are NOT in traditional dictionaries, focusing on the creative variations users think make their passwords "secure."
 
-image:https://img.shields.io/badge/License-PMPL--1.0-blue.svg[License: PMPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"]
+image:https://img.shields.io/badge/License-MPL--2.0-blue.svg[License: PMPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"]
 link:https://img.shields.io/badge/Chapel-2.3+-purple.svg[![Chapel]](https://chapel-lang.org/)
 link:https://img.shields.io/badge/Rust-2021-orange.svg[![Rust]](https://www.rust-lang.org/)
 link:https://img.shields.io/badge/ReScript-11+-red.svg[![ReScript]](https://rescript-lang.org/)

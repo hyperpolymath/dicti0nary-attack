@@ -1,7 +1,7 @@
 import? "contractile.just"
 
 # justfile - Command runner for dicti0nary-attack (Chapel/WASM edition)
-# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: MPL-2.0
 # SPDX-FileCopyrightText: 2025 Security Research Team
 
 # Show available commands
