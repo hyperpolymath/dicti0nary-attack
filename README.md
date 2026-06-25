@@ -1,77 +1,110 @@
-[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-pink?logo=github)](https://github.com/sponsors/hyperpolymath)
+<!--
+SPDX-License-Identifier: CC-BY-SA-4.0
+SPDX-FileCopyrightText: 2025-2026 Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+-->
 
-= 🔐 dicti0nary-attack
+[![License: MPL-2.0](https://img.shields.io/badge/License-MPL_2.0--1.0-blue.svg)](https://github.com/hyperpolymath/palimpsest-license)
 
-image:https://img.shields.io/badge/License-MPL--2.0-blue.svg[License: PMPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"]
+\> A comprehensive security research utility for testing non-dictionary
+passwords
 
-> A comprehensive security research utility for testing non-dictionary passwords
+Everyone knows that it’s easy to crack a password if it appears in a
+dictionary. *dicti0nary-attack* is a humorous inversion of that
+concept - it’s a powerful tool for generating and testing passwords that
+are NOT in traditional dictionaries, focusing on the creative variations
+users think make their passwords "secure."
 
-Everyone knows that it's easy to crack a password if it appears in a dictionary. _dicti0nary-attack_ is a humorous inversion of that concept - it's a powerful tool for generating and testing passwords that are NOT in traditional dictionaries, focusing on the creative variations users think make their passwords "secure."
+[![License: MPL-2.0](https://img.shields.io/badge/License-MPL_2.0--1.0-blue.svg)](https://github.com/hyperpolymath/palimpsest-license)
+link:[\![Chapel](https://img.shields.io/badge/Chapel-2.3+-purple.svg)\](<https://chapel-lang.org/>)
+[\![Rust](https://img.shields.io/badge/Rust-2021-orange.svg)\](<https://www.rust-lang.org/>)
+link:[\![ReScript](https://img.shields.io/badge/ReScript-11+-red.svg)\](<https://rescript-lang.org/>)
+[\![RSR
+Compliance](https://img.shields.io/badge/RSR-Bronze%20(86%25)-yellow.svg)\](RSR_COMPLIANCE.md)
+[\![Offline-First](https://img.shields.io/badge/offline--first-100%25-green.svg)\](RSR_COMPLIANCE.md#5-offline-first—​compliant)
 
-image:https://img.shields.io/badge/License-MPL--2.0-blue.svg[License: PMPL-1.0,link="https://github.com/hyperpolymath/palimpsest-license"]
-link:https://img.shields.io/badge/Chapel-2.3+-purple.svg[![Chapel]](https://chapel-lang.org/)
-link:https://img.shields.io/badge/Rust-2021-orange.svg[![Rust]](https://www.rust-lang.org/)
-link:https://img.shields.io/badge/ReScript-11+-red.svg[![ReScript]](https://rescript-lang.org/)
-link:https://img.shields.io/badge/RSR-Bronze%20(86%25[![RSR Compliance]-yellow.svg)](RSR_COMPLIANCE.md)
-link:https://img.shields.io/badge/offline--first-100%25-green.svg[![Offline-First]](RSR_COMPLIANCE.md#5-offline-first--compliant)
+# ⚠️ Legal Notice
 
-== ⚠️ Legal Notice
+*This tool is for authorized security testing only.*
 
-_This tool is for authorized security testing only._
+Authorized use includes: - ✅ Penetration testing with explicit written
+permission - ✅ Security audits of systems you own - ✅ CTF (Capture The
+Flag) competitions - ✅ Academic research and education - ✅ Password
+strength analysis on your own data
 
-Authorized use includes:
-- ✅ Penetration testing with explicit written permission
-- ✅ Security audits of systems you own
-- ✅ CTF (Capture The Flag) competitions
-- ✅ Academic research and education
-- ✅ Password strength analysis on your own data
+Unauthorized access to computer systems is *illegal* and may result in
+criminal prosecution under computer fraud and abuse laws.
 
-Unauthorized access to computer systems is _illegal_ and may result in criminal prosecution under computer fraud and abuse laws.
+# ✨ Features
 
-== ✨ Features
+## Password Generators
 
-=== Password Generators
+- *Leetspeak Generator*: Transforms words using character substitutions
+  (a→4, e→3, o→0, etc.)
 
-- _Leetspeak Generator_: Transforms words using character substitutions (a→4, e→3, o→0, etc.)
-- _Phonetic Generator_: Uses phonetic substitutions (for→4, to→2, you→u)
-- _Pattern Generator_: Creates pattern-based passwords (keyboard walks, sequences, date patterns)
-- _Random Generator_: Generates truly random non-dictionary passwords
-- _Markov Chain Generator_: Statistical password generation based on training data
+- *Phonetic Generator*: Uses phonetic substitutions (for→4, to→2, you→u)
 
-=== Hash Cracking
+- *Pattern Generator*: Creates pattern-based passwords (keyboard walks,
+  sequences, date patterns)
 
-- _Multi-Algorithm Support_: MD5, SHA1, SHA224, SHA256, SHA384, SHA512, BLAKE2b, BLAKE2s
-- _Parallel Processing_: Multi-core support for faster cracking
-- _Batch Operations_: Crack multiple hashes simultaneously
-- _Progress Tracking_: Real-time statistics and progress monitoring
+- *Random Generator*: Generates truly random non-dictionary passwords
 
-=== Additional Features
+- *Markov Chain Generator*: Statistical password generation based on
+  training data
 
-- 🎨 _Rich CLI Interface_: Beautiful terminal UI with progress bars and tables
-- 🌐 _Web Interface_: Browser-based GUI for easy password generation and cracking
-- 📊 _Comprehensive Statistics_: Detailed performance metrics and reporting
-- 🔧 _Flexible Configuration_: YAML/JSON configuration files
-- 📝 _Multiple Output Formats_: Text, JSON, CSV, HTML reports
-- 🐳 _Docker Support_: Containerized deployment
-- 🧪 _Extensive Test Suite_: High code coverage with pytest
-- ⚡ _Performance Benchmarks_: Built-in benchmarking tools
-- 🏆 _RSR Framework Compliant_: Bronze level (86% compliance)
-- 📴 _Offline-First_: Core functionality works without internet
-- 🔒 _Security-First_: RFC 9116 compliant, comprehensive security policy
+## Hash Cracking
 
-== 📦 Installation
+- *Multi-Algorithm Support*: MD5, SHA1, SHA224, SHA256, SHA384, SHA512,
+  BLAKE2b, BLAKE2s
 
-=== Prerequisites
+- *Parallel Processing*: Multi-core support for faster cracking
 
-* **Chapel** 2.3+ - https://chapel-lang.org/download.html[Download Chapel]
-* **Rust** 2021 edition - https://rustup.rs/[Install via rustup]
-* **Deno** (for web dev) - https://deno.land/[Install Deno]
-* **just** task runner - https://just.systems/[Install just]
+- *Batch Operations*: Crack multiple hashes simultaneously
 
-=== From Source
+- *Progress Tracking*: Real-time statistics and progress monitoring
 
-[source,bash]
-----
+## Additional Features
+
+- 🎨 *Rich CLI Interface*: Beautiful terminal UI with progress bars and
+  tables
+
+- 🌐 *Web Interface*: Browser-based GUI for easy password generation and
+  cracking
+
+- 📊 *Comprehensive Statistics*: Detailed performance metrics and
+  reporting
+
+- 🔧 *Flexible Configuration*: YAML/JSON configuration files
+
+- 📝 *Multiple Output Formats*: Text, JSON, CSV, HTML reports
+
+- 🐳 *Docker Support*: Containerized deployment
+
+- 🧪 *Extensive Test Suite*: High code coverage with pytest
+
+- ⚡ *Performance Benchmarks*: Built-in benchmarking tools
+
+- 🏆 *RSR Framework Compliant*: Bronze level (86% compliance)
+
+- 📴 *Offline-First*: Core functionality works without internet
+
+- 🔒 *Security-First*: RFC 9116 compliant, comprehensive security policy
+
+# 📦 Installation
+
+## Prerequisites
+
+- **Chapel** 2.3+ - [Download
+  Chapel](https://chapel-lang.org/download.html)
+
+- **Rust** 2021 edition - [Install via rustup](https://rustup.rs/)
+
+- **Deno** (for web dev) - [Install Deno](https://deno.land/)
+
+- **just** task runner - [Install just](https://just.systems/)
+
+## From Source
+
+```bash
 git clone https://github.com/Hyperpolymath/dicti0nary-attack.git
 cd dicti0nary-attack
 
@@ -83,12 +116,11 @@ just build
 
 # Build WASM for web interface
 just build-wasm
-----
+```
 
-=== Using Podman/Docker
+## Using Podman/Docker
 
-[source,bash]
-----
+```bash
 # Build with Podman (preferred)
 podman build -t dicti0nary-attack -f Containerfile .
 podman run --rm dicti0nary-attack just info
@@ -96,25 +128,23 @@ podman run --rm dicti0nary-attack just info
 # Or with Docker
 docker build -t dicti0nary-attack .
 docker run --rm dicti0nary-attack just info
-----
+```
 
-=== Using Podman Compose
+## Using Podman Compose
 
-[source,bash]
-----
+```bash
 # Run CLI
 podman-compose run dicti0nary-cli just info
 
 # Run web interface (static server)
 podman-compose up dicti0nary-static
-----
+```
 
-== 🚀 Quick Start
+# 🚀 Quick Start
 
-=== Generate Passwords
+## Generate Passwords
 
-[source,bash]
-----
+```bash
 # Generate 1000 leetspeak passwords
 dicti0nary generate -g leetspeak -n 1000
 
@@ -123,12 +153,11 @@ dicti0nary generate -g pattern -n 5000 -o passwords.txt
 
 # Custom length constraints
 dicti0nary generate -g random -n 100 --min-length 12 --max-length 20
-----
+```
 
-=== Crack Password Hashes
+## Crack Password Hashes
 
-[source,bash]
-----
+```bash
 # Crack a SHA256 hash using pattern generator
 dicti0nary crack 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8 -a sha256 -g pattern
 
@@ -137,89 +166,88 @@ dicti0nary crack <hash> -a sha256 -g leetspeak -p --workers 8
 
 # Use custom wordlist
 dicti0nary crack <hash> -a md5 -w wordlists/custom.txt
-----
+```
 
-=== Create Wordlists
+## Create Wordlists
 
-[source,bash]
-----
+```bash
 # Create leetspeak wordlist
 dicti0nary create-wordlist wordlists/leetspeak.txt -g leetspeak -n 50000
 
 # Create phonetic wordlist
 dicti0nary create-wordlist wordlists/phonetic.txt -g phonetic -n 10000
-----
+```
 
-=== Hash Passwords
+## Hash Passwords
 
-[source,bash]
-----
+```bash
 # Hash with SHA256
 dicti0nary hash-password "mypassword"
 
 # Hash with MD5
 dicti0nary hash-password "mypassword" -a md5
-----
+```
 
-=== Run Web Interface
+## Run Web Interface
 
-[source,bash]
-----
+```bash
 # Serve static web interface
 just serve-static
 
 # Or with Deno
 deno task serve
-----
+```
 
-Visit http://localhost:8080 in your browser.
+Visit <http://localhost:8080> in your browser.
 
-== 📚 Documentation
+# 📚 Documentation
 
-- link:docs/USAGE.md[Usage Guide] - Comprehensive usage instructions
-- link:docs/API.md[API Documentation] - Python API reference
-- link:docs/PLUGINS.md[Plugin Guide] - Plugin development guide
-- link:config/README.md[Configuration Guide] - Configuration options
-- link:RSR_COMPLIANCE.md[RSR Compliance] - Standards compliance report
-- link:SECURITY.md[Security Policy] - Vulnerability reporting
-- link:CONTRIBUTING.md[Contributing] - Contribution guidelines
+- [Usage Guide](docs/USAGE.md) - Comprehensive usage instructions
 
-== 🎯 Use Cases
+- [API Documentation](docs/API.md) - Python API reference
 
-=== Security Audit
+- [Plugin Guide](docs/PLUGINS.md) - Plugin development guide
+
+- [Configuration Guide](config/README.md) - Configuration options
+
+- [RSR Compliance](RSR_COMPLIANCE.md) - Standards compliance report
+
+- [Security Policy](SECURITY.md) - Vulnerability reporting
+
+- [Contributing](CONTRIBUTING.md) - Contribution guidelines
+
+# 🎯 Use Cases
+
+## Security Audit
 
 Test if users are using common non-dictionary password patterns:
 
-[source,bash]
-----
+```bash
 dicti0nary create-wordlist audit.txt -g leetspeak -n 100000
 dicti0nary crack <hash> -w audit.txt -a sha256
-----
+```
 
-=== CTF Competition
+## CTF Competition
 
 Quickly test common patterns:
 
-[source,bash]
-----
+```bash
 dicti0nary crack <ctf_hash> -a md5 -g pattern -p
-----
+```
 
-=== Password Research
+## Password Research
 
 Generate datasets for password strength analysis:
 
-[source,bash]
-----
+```bash
 dicti0nary create-wordlist data/leetspeak.txt -g leetspeak -n 50000
 dicti0nary create-wordlist data/phonetic.txt -g phonetic -n 50000
 dicti0nary create-wordlist data/patterns.txt -g pattern -n 50000
-----
+```
 
-== 🏗️ Architecture
+# 🏗️ Architecture
 
-[source,text]
-----
+```text
 dicti0nary-attack/
 ├── src/                          # Main source code
 │   ├── main.rs                   # Rust CLI entry point
@@ -258,14 +286,13 @@ dicti0nary-attack/
 ├── Chapel.toml                   # Chapel config
 ├── rescript.json                 # ReScript config
 └── deno.json                     # Deno config
-----
+```
 
-== 🔧 Configuration
+# 🔧 Configuration
 
 Create a configuration file (`config.yaml`):
 
-[source,yaml]
-----
+```yaml
 generators:
   leetspeak:
     max_substitutions: 3
@@ -285,21 +312,19 @@ output:
   format: json
   directory: output
   save_stats: true
-----
+```
 
 Use with commands:
 
-[source,bash]
-----
+```bash
 dicti0nary --config config.yaml generate -g leetspeak -n 1000
-----
+```
 
-== 🧪 Testing
+# 🧪 Testing
 
 Run the test suite:
 
-[source,bash]
-----
+```bash
 # Run Chapel tests
 just test
 
@@ -311,56 +336,51 @@ cargo test
 
 # Watch mode (requires entr)
 just test-watch
-----
+```
 
-== 📊 Benchmarks
+# 📊 Benchmarks
 
 Run performance benchmarks:
 
-[source,bash]
-----
+```bash
 # Run Chapel benchmarks
 just bench
 
 # Run Rust benchmarks
 cargo bench
-----
+```
 
-== 🐳 Container Usage
+# 🐳 Container Usage
 
-=== Build Image (Podman preferred)
+## Build Image (Podman preferred)
 
-[source,bash]
-----
+```bash
 # Podman (preferred)
 podman build -t dicti0nary-attack -f Containerfile .
 
 # Docker
 docker build -t dicti0nary-attack .
-----
+```
 
-=== Run CLI
+## Run CLI
 
-[source,bash]
-----
+```bash
 podman run --rm dicti0nary-attack just info
-----
+```
 
-=== Run Web Interface
+## Run Web Interface
 
-[source,bash]
-----
+```bash
 podman-compose up dicti0nary-static
-----
+```
 
-Access at http://localhost:8080
+Access at <http://localhost:8080>
 
-== 🛠️ Development
+# 🛠️ Development
 
-=== Setup Development Environment
+## Setup Development Environment
 
-[source,bash]
-----
+```bash
 # Clone repository
 git clone https://github.com/Hyperpolymath/dicti0nary-attack.git
 cd dicti0nary-attack
@@ -376,12 +396,11 @@ deno task build:rescript
 
 # Watch mode for development
 deno task watch:rescript
-----
+```
 
-=== Available just Commands
+## Available just Commands
 
-[source,bash]
-----
+```bash
 just               # List all commands
 just build         # Compile Chapel sources
 just build-wasm    # Compile to WASM
@@ -398,45 +417,60 @@ just podman-build  # Build container
 just validate-rsr  # Check RSR compliance
 just nickel-eval   # Evaluate Nickel config
 just stats         # Show project statistics
-----
+```
 
-== 🤝 Contributing
+# 🤝 Contributing
 
 Contributions are welcome! Please ensure:
 
-1. All tests pass: `just test` and `cargo test`
-2. Code is formatted: `just format` and `cargo fmt`
-3. No linting errors: `just lint` and `cargo clippy`
-4. ReScript compiles: `deno task build:rescript`
-5. Documentation is updated
+1.  All tests pass: `just` `test` and `cargo` `test`
 
-== 📄 License
+2.  Code is formatted: `just` `format` and `cargo` `fmt`
 
-This project is licensed under the GNU General Public License v3.0 - see the link:LICENSE[LICENSE] file for details.
+3.  No linting errors: `just` `lint` and `cargo` `clippy`
 
-== 🙏 Acknowledgments
+4.  ReScript compiles: `deno` `task` `build:rescript`
+
+5.  Documentation is updated
+
+# 📄 License
+
+This project is licensed under the GNU General Public License v3.0 - see
+the [LICENSE](LICENSE) file for details.
+
+# 🙏 Acknowledgments
 
 - Inspired by the need for better password security testing tools
+
 - Built with Chapel, Rust, ReScript, and Nickel
+
 - Powered by WASM for offline-first browser execution
+
 - Thanks to the security research community
 
-== 📞 Contact & Support
+# 📞 Contact & Support
 
-- _Issues_: link:https://github.com/Hyperpolymath/dicti0nary-attack/issues[GitHub Issues]
-- _Documentation_: link:docs/[docs/]
-- _License_: GPL-3.0
+- *Issues*: [GitHub
+  Issues](https://github.com/Hyperpolymath/dicti0nary-attack/issues)
 
-== 🔒 Security Notice
+- *Documentation*: [docs/](docs/)
 
-This tool is designed to help security professionals identify weak passwords. It should never be used:
+- *License*: GPL-3.0
+
+# 🔒 Security Notice
+
+This tool is designed to help security professionals identify weak
+passwords. It should never be used:
 
 - To gain unauthorized access to any system
-- To crack passwords you don't have permission to test
+
+- To crack passwords you don’t have permission to test
+
 - For any illegal or unethical purposes
 
-Always obtain explicit written permission before testing any system you do not own.
+Always obtain explicit written permission before testing any system you
+do not own.
 
----
+------------------------------------------------------------------------
 
-_Made with ❤️ for the security research community_
+*Made with ❤️ for the security research community*
