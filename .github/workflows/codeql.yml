@@ -8,6 +8,7 @@ on:
   schedule:
     - cron: '0 6 1 * *'
 permissions: read-all
+  actions: read
 jobs:
   analyze:
     runs-on: ubuntu-latest
