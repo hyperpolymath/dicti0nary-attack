@@ -7,7 +7,6 @@ on:
       - 'Cargo.toml'
       - 'Cargo.lock'
 permissions: read-all
-  actions: read
 jobs:
   fuzz:
     runs-on: ubuntu-latest
