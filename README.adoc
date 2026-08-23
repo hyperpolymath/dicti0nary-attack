@@ -13,7 +13,7 @@ Everyone knows that it's easy to crack a password if it appears in a dictionary.
 image:https://img.shields.io/badge/License-MPL_2.0--1.0-blue.svg[License: MPL-2.0,link="https://github.com/hyperpolymath/palimpsest-license"]
 link:https://img.shields.io/badge/Chapel-2.3+-purple.svg[![Chapel]](https://chapel-lang.org/)
 link:https://img.shields.io/badge/Rust-2021-orange.svg[![Rust]](https://www.rust-lang.org/)
-link:https://img.shields.io/badge/ReScript-11+-red.svg[![ReScript]](https://rescript-lang.org/)
+link:https://img.shields.io/badge/AffineScript-11+-red.svg[![AffineScript]](https://affinescript-lang.org/)
 link:https://img.shields.io/badge/RSR-Bronze%20(86%25[![RSR Compliance]-yellow.svg)](RSR_COMPLIANCE.md)
 link:https://img.shields.io/badge/offline--first-100%25-green.svg[![Offline-First]](RSR_COMPLIANCE.md#5-offline-first--compliant)
 
@@ -240,14 +240,14 @@ dicti0nary-attack/
 │   └── crackers/                 # Rust cracking engine
 ├── web/                          # Static web interface
 │   ├── index.html                # Main HTML
-│   ├── src/                      # ReScript source
+│   ├── src/                      # AffineScript source
 │   │   ├── App.res               # Application logic
 │   │   ├── Generators.res        # Password generators
 │   │   ├── Hash.res              # Hashing utilities
 │   │   └── WasmLoader.res        # WASM module loader
 │   └── static/                   # Static assets
 │       ├── css/                  # CSS-first styling
-│       ├── js/                   # Compiled ReScript output
+│       ├── js/                   # Compiled AffineScript output
 │       └── wasm/                 # Chapel-compiled WASM
 ├── config/                       # Configuration files
 │   ├── dicti0nary.ncl            # Nickel configuration
@@ -258,7 +258,7 @@ dicti0nary-attack/
 ├── Justfile                      # Task automation
 ├── Cargo.toml                    # Rust workspace manifest
 ├── Chapel.toml                   # Chapel config
-├── rescript.json                 # ReScript config
+├── affinescript.json                 # AffineScript config
 └── deno.json                     # Deno config
 ----
 
@@ -373,11 +373,11 @@ just init
 # Install pre-commit hooks
 just setup-hooks
 
-# Build ReScript (web interface)
-deno task build:rescript
+# Build AffineScript (web interface)
+deno task build:affinescript
 
 # Watch mode for development
-deno task watch:rescript
+deno task watch:affinescript
 ----
 
 === Available just Commands
@@ -409,7 +409,7 @@ Contributions are welcome! Please ensure:
 1. All tests pass: `just test` and `cargo test`
 2. Code is formatted: `just format` and `cargo fmt`
 3. No linting errors: `just lint` and `cargo clippy`
-4. ReScript compiles: `deno task build:rescript`
+4. AffineScript compiles: `deno task build:affinescript`
 5. Documentation is updated
 
 == 📄 License
@@ -419,7 +419,7 @@ This project is licensed under the GNU General Public License v3.0 - see the lin
 == 🙏 Acknowledgments
 
 - Inspired by the need for better password security testing tools
-- Built with Chapel, Rust, ReScript, and Nickel
+- Built with Chapel, Rust, AffineScript, and Nickel
 - Powered by WASM for offline-first browser execution
 - Thanks to the security research community
 

@@ -46,7 +46,7 @@ The Chapel hash cracker in link:src/crackers/HashCracker.chpl[`src/crackers/Hash
 dispatches to the selected algorithm using Chapel's `coforall` for parallel
 processing across cores. The Rust crate in `crates/crackers/` implements the
 same algorithms using the `sha2`, `sha1`, and `blake2` crates. The
-link:web/src/Hash.res[`web/src/Hash.res`] ReScript module handles hashing in
+link:web/src/Hash.res[`web/src/Hash.res`] AffineScript module handles hashing in
 the browser WASM context.
 
 Caveat::
@@ -54,22 +54,22 @@ MD5 and SHA1 are included for legacy hash cracking in authorised security
 assessments. They must not be used for any new security-relevant hashing;
 SHA-256+ is required per the hyperpolymath security policy.
 
-== "Chapel + Rust + ReScript polyglot architecture"
+== "Chapel + Rust + AffineScript polyglot architecture"
 
 [quote, README.adoc]
 ____
 Architecture: Chapel (generators/crackers), Rust workspace crates (core
-types), ReScript web interface, compiled to WASM.
+types), AffineScript web interface, compiled to WASM.
 ____
 
 How this is implemented::
 The three-language split is enforced by the directory structure:
 `src/generators/*.chpl` and `src/crackers/*.chpl` are Chapel (parallel HPC
 computation), `crates/` is a Rust workspace (type definitions + WASM target),
-and `web/src/*.res` is ReScript (browser UI, compiles to JavaScript via
-`rescript.json`). The link:justfile[`justfile`] wires the build pipeline:
+and `web/src/*.res` is AffineScript (browser UI, compiles to JavaScript via
+`affinescript.json`). The link:justfile[`justfile`] wires the build pipeline:
 `just build` compiles Chapel, `just build-wasm` compiles Rust to WASM,
-`deno task build:rescript` compiles the web interface.
+`deno task build:affinescript` compiles the web interface.
 
 Caveat::
 Chapel is not a standard hyperpolymath language (it was permitted for this
@@ -86,7 +86,7 @@ ____
 How this is implemented::
 The CLI in link:src/main.rs[`src/main.rs`] uses the Rust `clap` crate for
 argument parsing and displays progress bars. The static web interface in
-link:web/[`web/`] is a Deno-served ReScript application that loads WASM
+link:web/[`web/`] is a Deno-served AffineScript application that loads WASM
 modules from `web/static/wasm/`. Run via `just serve-static`.
 
 Caveat::
@@ -109,7 +109,7 @@ cracking via WASM is CPU-bound and significantly slower than the native CLI.
 | link:https://github.com/hyperpolymath/phantom-metal-taste[phantom-metal-taste]
   (gap score computation WASM)
 
-| ReScript web UI
+| AffineScript web UI
 | Browser interface for generators
 | link:https://github.com/hyperpolymath/gossamer[gossamer],
   link:https://github.com/hyperpolymath/blue-screen-of-app[blue-screen-of-app]
