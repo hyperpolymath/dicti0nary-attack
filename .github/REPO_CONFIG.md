@@ -26,7 +26,7 @@ The repository should have the following topics:
 - `offline-first`
 
 ### Secondary (Recommended)
-- `rescript`
+- `affinescript`
 - `password-cracking`
 - `hash-cracking`
 - `cryptography`
@@ -52,7 +52,7 @@ gh repo edit hyperpolymath/dicti0nary-attack \
   --add-topic rust \
   --add-topic wasm \
   --add-topic offline-first \
-  --add-topic rescript \
+  --add-topic affinescript \
   --add-topic password-cracking \
   --add-topic cryptography \
   --add-topic ctf-tools \
@@ -67,13 +67,13 @@ This repository follows the Hyperpolymath Language Policy:
 |---------|----------|
 | Chapel | Primary password generation/cracking |
 | Rust | CLI implementation |
-| ReScript | Web interface logic |
+| AffineScript | Web interface logic |
 | Nickel | Configuration |
 | Bash | Scripts/automation |
 
 | Banned | Replacement |
 |--------|-------------|
-| TypeScript | ReScript |
+| TypeScript | AffineScript |
 | Python | Chapel/Rust |
 | Node.js | Deno |
 | npm/bun | Deno |

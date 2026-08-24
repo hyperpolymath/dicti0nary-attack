@@ -212,19 +212,19 @@ nickel-check:
 mustfile-check:
     nickel typecheck Mustfile.epx
 
-# === ReScript/Deno Commands ===
+# === AffineScript/Deno Commands ===
 
-# Build ReScript modules
-rescript-build:
-    deno task build:rescript
+# Build AffineScript modules
+affinescript-build:
+    deno task build:affinescript
 
-# Watch ReScript modules
-rescript-watch:
-    deno task watch:rescript
+# Watch AffineScript modules
+affinescript-watch:
+    deno task watch:affinescript
 
-# Clean ReScript build
-rescript-clean:
-    deno task clean:rescript
+# Clean AffineScript build
+affinescript-clean:
+    deno task clean:affinescript
 
 # === Policy Enforcement ===
 
