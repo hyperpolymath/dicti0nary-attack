@@ -150,7 +150,7 @@
     offline_first = true,
     type_safety = true,
     memory_safety = true,
-    documentation = ["README.adoc", "CONTRIBUTING.adoc", "SECURITY.md"],
+    documentation = ["README.adoc", ".github/CONTRIBUTING.md", "SECURITY.md"],
   },
 
   # Environment configurations

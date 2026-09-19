@@ -167,7 +167,7 @@ validate-rsr:
     @echo "✓ Checking documentation files..."
     @test -f README.adoc && echo "  ✓ README.adoc"
     @test -f LICENSE && echo "  ✓ LICENSE"
-    @test -f CONTRIBUTING.adoc && echo "  ✓ CONTRIBUTING.adoc"
+    @test -f .github/CONTRIBUTING.md && echo "  ✓ .github/CONTRIBUTING.md"
     @test -f CODE_OF_CONDUCT.adoc && echo "  ✓ CODE_OF_CONDUCT.adoc"
     @test -f SECURITY.adoc && echo "  ✓ SECURITY.adoc"
     @test -f CHANGELOG.adoc && echo "  ✓ CHANGELOG.adoc"
