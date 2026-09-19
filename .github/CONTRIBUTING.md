@@ -74,7 +74,7 @@ We love pull requests! Here’s the process:
 
 <!-- -->
 
-4.  *Test your changes* \`\`\`bash \# Run tests pytest
+4.  *Test your changes* \`\`\`bash # Run tests pytest
 
 <!-- -->
 
