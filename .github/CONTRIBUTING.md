@@ -351,7 +351,7 @@ dicti0nary-attack/
 ├── README.adoc
 ├── SECURITY.md
 ├── flake.guix # Guix flake (Perimeter 1)
-└── Justfile # Task runner (Perimeter 1) ```
+└── Justfile # Task runner (Perimeter 1)
 ```
 
 ---
