@@ -46,11 +46,6 @@ jobs:
       - name: Run tests with pytest
         run: |
           pytest tests/ -v --cov=dicti0nary_attack --cov-report=xml --cov-report=term
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7
-        with:
-          file: ./coverage.xml
-          fail_ci_if_error: false
   security:
     name: Security Scan
     runs-on: ubuntu-latest
