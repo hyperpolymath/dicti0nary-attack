@@ -1,0 +1,7 @@
+{
+  "name": "dicti0nary-attack",
+  "private": true,
+  "devDependencies": {
+    "prettier": "3.10.1"
+  }
+}
