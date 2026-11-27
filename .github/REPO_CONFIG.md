@@ -75,8 +75,8 @@ This repository follows the Hyperpolymath Language Policy:
 |--------|-------------|
 | TypeScript | AffineScript |
 | Python | Chapel/Rust |
-| Node.js | Deno |
-| npm/bun | Deno |
+| Node.js | Bun (first) |
+| npm | Bun (first) |
 | Makefile | Justfile |
 
 ## Verification
